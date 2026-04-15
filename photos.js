@@ -118,32 +118,32 @@ const PHOTOS = {
       }
     ]
   },
-  portugal: {
+  maui: {
     hero: {
-      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Pena_Palace_Sintra.jpg/1280px-Pena_Palace_Sintra.jpg",
-      caption: "Pena Palace, Sintra",
-      credit: "Sergey Pesterev / CC BY-SA 4.0"
+      url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Haleakala_crater.jpg/1280px-Haleakala_crater.jpg",
+      caption: "Haleakalā crater, Maui",
+      credit: "Michael Oswald / Public Domain"
     },
     gallery: [
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Tram_28_in_Alfama_%28Lissabon_2016%29_%2826029557541%29.jpg/1280px-Tram_28_in_Alfama_%28Lissabon_2016%29_%2826029557541%29.jpg",
-        caption: "Tram 28 in Alfama, Lisbon",
-        credit: "Paul Arps / CC BY 2.0"
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Seven_Sacred_Pools_at_Oheo_Gulch.jpg/1280px-Seven_Sacred_Pools_at_Oheo_Gulch.jpg",
+        caption: "Seven Sacred Pools at Oheo Gulch",
+        credit: "JHill / CC BY-SA 2.0"
       },
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Porto-Panorama_de_Ribeira-Rabelos-20120910.jpg/1280px-Porto-Panorama_de_Ribeira-Rabelos-20120910.jpg",
-        caption: "Porto Ribeira with rabelo boats",
-        credit: "Daniel Villafruela / CC BY-SA 4.0"
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Iao_Valley_State_Park_Maui._%2811248131064%29.jpg/1280px-Iao_Valley_State_Park_Maui._%2811248131064%29.jpg",
+        caption: "Iao Valley State Park",
+        credit: "Bernard Spragg / CC0"
       },
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Terras_do_Douro.jpg/1280px-Terras_do_Douro.jpg",
-        caption: "Terraced vineyards along the Douro",
-        credit: "Feliciano Guimaraes / CC BY 2.0"
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Kaanapali_beach_sunset_on_Maui_Hawaii_%2845015472644%29.jpg/1280px-Kaanapali_beach_sunset_on_Maui_Hawaii_%2845015472644%29.jpg",
+        caption: "Kaanapali Beach sunset",
+        credit: "dronepicr / CC BY 2.0"
       },
       {
-        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Pasteis_de_Nata.jpg/1280px-Pasteis_de_Nata.jpg",
-        caption: "Pastéis de nata",
-        credit: "helmut.weigel / CC BY-SA 4.0"
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Sunset._Maui._Hawaii._%2810847697296%29.jpg/1280px-Sunset._Maui._Hawaii._%2810847697296%29.jpg",
+        caption: "Maui coastal sunset",
+        credit: "Bernard Spragg / CC0"
       }
     ]
   }
