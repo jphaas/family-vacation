@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer 2026 Family Vacation — Destination Brainstorm</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #fdfcf8;
+    --text: #1f2933;
+    --muted: #6b7280;
+    --accent: #0d7377;
+    --accent-light: #e8f4f5;
+    --warn: #c2410c;
+    --good: #0f766e;
+    --card-bg: #ffffff;
+    --border: #e5e7eb;
+    --shadow: 0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text);
+    margin: 0; line-height: 1.6; font-size: 16px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
+  header.hero {
+    background: linear-gradient(135deg, #0d7377 0%, #14a098 100%);
+    color: white; padding: 3.5rem 1.25rem 2.5rem; text-align: center;
+  }
+  header.hero h1 { font-size: 2.4rem; margin: 0 0 0.5rem; font-weight: 700; letter-spacing: -0.02em; }
+  header.hero p { font-size: 1.1rem; opacity: 0.95; margin: 0.25rem 0; max-width: 720px; margin-inline: auto; }
+  header.hero .dates { display: inline-block; margin-top: 1rem; background: rgba(255,255,255,0.15); padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.95rem; font-weight: 500; }
+
+  section { padding: 3rem 0; }
+  section.alt { background: #f5f2eb; }
+  h2 { font-size: 1.75rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; }
+  h3 { font-size: 1.3rem; margin: 1.5rem 0 0.5rem; }
+  h4 { font-size: 1.05rem; margin: 1rem 0 0.35rem; color: var(--accent); }
+  .lead { color: var(--muted); font-size: 1.05rem; max-width: 720px; margin: 0 0 1.5rem; }
+
+  .summary-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 1.75rem; margin: 1.5rem 0; box-shadow: var(--shadow);
+  }
+  .summary-card.top-pick {
+    border-left: 4px solid var(--accent);
+    background: linear-gradient(to right, var(--accent-light) 0%, var(--card-bg) 15%);
+  }
+
+  /* Comparison table */
+  .compare-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1rem 0; }
+  table.compare {
+    width: 100%; min-width: 800px; border-collapse: collapse;
+    background: var(--card-bg); border-radius: 10px; overflow: hidden;
+    box-shadow: var(--shadow); font-size: 0.93rem;
+  }
+  table.compare th, table.compare td {
+    padding: 0.7rem 0.9rem; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  table.compare th { background: #f9f7f2; font-weight: 600; position: sticky; top: 0; }
+  table.compare td.num { text-align: center; font-variant-numeric: tabular-nums; }
+  .score-bar {
+    display: inline-block; width: 60px; height: 8px; background: #e5e7eb;
+    border-radius: 4px; position: relative; vertical-align: middle; margin-right: 6px;
+  }
+  .score-bar::after {
+    content: ""; position: absolute; top: 0; left: 0; height: 100%;
+    background: var(--accent); border-radius: 4px; width: calc(var(--pct) * 1%);
+  }
+  .total-score { font-weight: 600; color: var(--accent); }
+
+  /* Destination cards */
+  .destination {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
+    margin: 2.5rem 0; overflow: hidden; box-shadow: var(--shadow);
+  }
+  .dest-hero {
+    position: relative; aspect-ratio: 21 / 9; background: #1f2933;
+    overflow: hidden;
+  }
+  .dest-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dest-hero .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
+    display: flex; align-items: flex-end; padding: 2rem;
+  }
+  .dest-hero h2 { color: white; margin: 0; font-size: 2.2rem; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+  .dest-hero .rank {
+    position: absolute; top: 1rem; left: 1rem;
+    background: white; color: var(--accent); padding: 0.25rem 0.8rem;
+    border-radius: 100px; font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em;
+  }
+
+  .dest-body { padding: 1.75rem; }
+  .dest-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 900px) {
+    .dest-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .dest-chart { max-width: 100%; }
+  .dest-chart canvas { max-height: 340px; }
+
+  .hl-block { margin: 1rem 0; }
+  .hl-block h4 { margin-bottom: 0.3rem; }
+  .hl-block ul { margin: 0; padding-left: 1.3rem; }
+  .hl-block li { margin-bottom: 0.25rem; }
+
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0;
+  }
+  .pill {
+    background: var(--accent-light); color: var(--accent);
+    padding: 0.3rem 0.8rem; border-radius: 100px; font-size: 0.85rem; font-weight: 500;
+  }
+  .pill.warn { background: #fff4ed; color: var(--warn); }
+  .pill.good { background: #ecfdf5; color: var(--good); }
+  .pill.muted { background: #f3f4f6; color: var(--muted); }
+
+  details.section-details {
+    background: #fafafa; border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem 1.25rem; margin: 0.75rem 0;
+  }
+  details.section-details summary {
+    cursor: pointer; font-weight: 600; color: var(--text);
+  }
+  details.section-details[open] summary { margin-bottom: 0.5rem; }
+
+  .itinerary {
+    background: #fafafa; border-left: 3px solid var(--accent);
+    padding: 0.8rem 1rem; margin: 0.5rem 0; font-size: 0.92rem;
+  }
+  .itinerary strong { color: var(--accent); }
+
+  /* Photo gallery */
+  .gallery {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.5rem; margin: 1rem 0;
+  }
+  .gallery img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px;
+    background: #e5e7eb;
+  }
+
+  .pros-cons { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (min-width: 700px) { .pros-cons { grid-template-columns: 1fr 1fr; } }
+  .pros, .cons {
+    padding: 1rem 1.25rem; border-radius: 10px;
+    font-size: 0.95rem;
+  }
+  .pros { background: #ecfdf5; border-left: 3px solid var(--good); }
+  .cons { background: #fff4ed; border-left: 3px solid var(--warn); }
+  .pros h4 { color: var(--good); margin-top: 0; }
+  .cons h4 { color: var(--warn); margin-top: 0; }
+  .pros ul, .cons ul { margin: 0; padding-left: 1.25rem; }
+
+  .cost-bar {
+    background: #f3f4f6; border-radius: 8px; padding: 0.75rem 1rem;
+    margin: 0.5rem 0; font-size: 0.93rem; display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .cost-bar strong { font-variant-numeric: tabular-nums; }
+
+  /* Honorable mentions grid */
+  .hm-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+  @media (min-width: 700px) { .hm-grid { grid-template-columns: 1fr 1fr; } }
+  .hm-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px;
+    padding: 1.25rem; box-shadow: var(--shadow);
+  }
+  .hm-card h3 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+  .hm-card .score { color: var(--muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+  .hm-card p { font-size: 0.92rem; margin: 0.5rem 0; }
+
+  footer { background: #1f2933; color: #d1d5db; padding: 2.5rem 1.25rem; font-size: 0.88rem; }
+  footer a { color: #9ae6b4; }
+
+  .nav-anchors {
+    position: sticky; top: 0; background: var(--bg);
+    padding: 0.75rem 0; z-index: 10; border-bottom: 1px solid var(--border);
+    overflow-x: auto; white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-anchors .container { display: flex; gap: 0.6rem; padding: 0 1.25rem; }
+  .nav-anchors a {
+    color: var(--text); text-decoration: none; padding: 0.4rem 0.85rem;
+    border-radius: 100px; background: white; border: 1px solid var(--border);
+    font-size: 0.88rem; font-weight: 500; flex-shrink: 0;
+  }
+  .nav-anchors a:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+  .emoji { font-size: 1.2em; }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <h1>Summer 2026 Family Vacation</h1>
+    <p>Destination brainstorm for Josh, Rose, Naomi (5), &amp; Hannah (22 months)</p>
+    <div class="dates">July 4 – 18, 2026</div>
+  </div>
+</header>
+
+<nav class="nav-anchors">
+  <div class="container">
+    <a href="#top-pick">Top pick</a>
+    <a href="#compare">Compare</a>
+    <a href="#pnw">Pacific NW</a>
+    <a href="#bc">British Columbia</a>
+    <a href="#azores">Azores</a>
+    <a href="#kauai">Kauai</a>
+    <a href="#portugal">Portugal</a>
+    <a href="#mentions">Others</a>
+    <a href="#method">Method</a>
+  </div>
+</nav>
+
+<section id="top-pick">
+  <div class="container">
+    <h2>The short version</h2>
+    <p class="lead">Out of 10 destinations fully researched, these 5 are the strongest fits for our profile (hiking + culture + walking + relaxing with young kids + 28°C heat ceiling). Top 4 scores are within ~3 points — all viable; differentiators are preference, not quality.</p>
+
+    <div class="summary-card top-pick">
+      <h3 style="margin-top:0;">🥇 Pacific Northwest wins on the math</h3>
+      <p>Best overall fit: ideal July weather (24°C Seattle, 17–20°C Olympic coast, 21–24°C San Juans), genuinely 50/50 urban/nature, excellent Cupertino pairing via Seattle→SFO, zero jet lag, and the kid activities are purpose-built for these ages (Pacific Science Center "Just for Tots", Aquarium, ferries, tide pools, Sol Duc hot springs).</p>
+      <p><strong>But three close runners-up</strong> each bring something different. BC is PNW + more international character. Azores is the unique/budget outlier at half the cost. Kauai is the tropical pick if we want resort downtime. Portugal is the culture-first pick (but heat ceiling is real).</p>
+      <p style="margin-bottom:0;"><strong>The decision comes down to:</strong> how much do we value weather safety (PNW/BC), novelty (Azores), tropical relaxation (Kauai), or cultural depth (Portugal)?</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="compare">
+  <div class="container">
+    <h2>Side-by-side comparison</h2>
+    <p class="lead">Scored 1–5 on eight categories, weighted for our profile. Higher = better. Full methodology at the bottom.</p>
+
+    <div class="compare-wrap">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th>Destination</th>
+            <th>Us</th>
+            <th>Kids</th>
+            <th>Stress</th>
+            <th>Risks</th>
+            <th>Weather</th>
+            <th>Cost</th>
+            <th>Cupertino</th>
+            <th>Age-fit</th>
+            <th>Total /55</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pacific NW</strong></td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:90"></span>4.5</td>
+            <td class="num"><span class="score-bar" style="--pct:70"></span>3.5</td>
+            <td class="num"><span class="score-bar" style="--pct:50"></span>2.5</td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num total-score">44.0</td>
+          </tr>
+          <tr>
+            <td><strong>British Columbia</strong></td>
+            <td class="num"><span class="score-bar" style="--pct:90"></span>4.5</td>
+            <td class="num"><span class="score-bar" style="--pct:90"></span>4.5</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num"><span class="score-bar" style="--pct:50"></span>2.5</td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num"><span class="score-bar" style="--pct:90"></span>4.5</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num total-score">43.0</td>
+          </tr>
+          <tr>
+            <td><strong>Azores</strong></td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:20"></span>1.0</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num total-score">42.5</td>
+          </tr>
+          <tr>
+            <td><strong>Kauai</strong></td>
+            <td class="num"><span class="score-bar" style="--pct:90"></span>4.5</td>
+            <td class="num"><span class="score-bar" style="--pct:90"></span>4.5</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num"><span class="score-bar" style="--pct:50"></span>2.5</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:50"></span>2.5</td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num total-score">41.3</td>
+          </tr>
+          <tr>
+            <td><strong>Portugal</strong></td>
+            <td class="num"><span class="score-bar" style="--pct:100"></span>5.0</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num"><span class="score-bar" style="--pct:40"></span>2.0</td>
+            <td class="num"><span class="score-bar" style="--pct:50"></span>2.5</td>
+            <td class="num"><span class="score-bar" style="--pct:80"></span>4.0</td>
+            <td class="num"><span class="score-bar" style="--pct:40"></span>2.0</td>
+            <td class="num"><span class="score-bar" style="--pct:60"></span>3.0</td>
+            <td class="num total-score">37.3</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lead" style="margin-top:1.5rem;font-size:0.92rem;"><em>Category weights: Us ×2, Kids ×2, Stress ×1.5, Risks ×1.5, Weather ×1.5, Cost ×1, Cupertino ×0.5, Age-fit ×1. Max possible score = 55.</em></p>
+  </div>
+</section>
+
+<!-- DESTINATION CARDS -->
+
+<!-- PACIFIC NORTHWEST -->
+<section id="pnw">
+  <div class="container">
+    <div class="destination">
+      <div class="dest-hero">
+        <span class="rank">#1 · 44 / 55</span>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Pacific Northwest">
+        <div class="overlay">
+          <h2>Pacific Northwest</h2>
+        </div>
+      </div>
+      <div class="dest-body">
+        <p class="lead">Seattle + Olympic National Park + San Juan Islands — the best overall fit. Zero jet lag, dreamy 24°C weather, a nature-and-city combo calibrated for exactly our ages.</p>
+
+        <div class="meta-row">
+          <span class="pill good">24°C / 75°F</span>
+          <span class="pill good">6h direct flight</span>
+          <span class="pill good">Cupertino-friendly</span>
+          <span class="pill">~$8–12K for 2 wks</span>
+          <span class="pill warn">Wildfire smoke risk</span>
+        </div>
+
+        <div class="dest-grid">
+          <div>
+            <div class="hl-block">
+              <h4>Highlights for us</h4>
+              <ul>
+                <li><strong>Hoh Rain Forest (Hall of Mosses)</strong> — 0.8-mi cathedral loop through old-growth draped in moss. Otherworldly.</li>
+                <li><strong>Hurricane Ridge</strong> — drive to 5,200 ft for Olympic panorama; July wildflower meadows.</li>
+                <li><strong>Pike Place Market + Chihuly Glass + MoPOP</strong> — Seattle's walkable core at its best.</li>
+                <li><strong>San Juan Islands whale watching</strong> — peak July orca season; 3-hour catamaran tours from Friday Harbor.</li>
+                <li><strong>Port Townsend</strong> — one of only three Victorian seaports in the US; galleries, brick buildings, waterfront.</li>
+              </ul>
+            </div>
+
+            <div class="hl-block">
+              <h4>Highlights for kids</h4>
+              <ul>
+                <li><strong>Pacific Science Center "Just for Tots"</strong> + Seattle Aquarium otters + Seattle Center fountain splash</li>
+                <li><strong>Ruby Beach tide pools</strong> — sea stars, anemones, crabs. Peak 5yo wonder.</li>
+                <li><strong>Sol Duc Hot Springs</strong> — warm forest pools with a kids' section</li>
+                <li><strong>Bainbridge ferry ride</strong> — the ride IS the attraction</li>
+                <li><strong>Discovery Park</strong> — hidden playground + lighthouse trail, stroller-friendly</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="dest-chart">
+            <canvas id="chart-pnw"></canvas>
+          </div>
+        </div>
+
+        <h4>Suggested 2-week itinerary</h4>
+        <div class="itinerary">
+          <strong>Seattle 4 nights</strong> (Jul 4–8) — arrival, Pike Place, museums, Discovery Park<br>
+          <strong>Port Townsend 1</strong> (Jul 8) — Bainbridge ferry, Victorian town walk<br>
+          <strong>Port Angeles 2</strong> (Jul 9–10) — Hurricane Ridge + Sol Duc Hot Springs<br>
+          <strong>Hoh / Kalaloch 2</strong> (Jul 11–12) — Hall of Mosses + Ruby Beach<br>
+          <strong>Buffer day Sequim 1</strong> (Jul 13) — lavender farms, laundry, Olympic Game Farm<br>
+          <strong>San Juan Island 3</strong> (Jul 14–16) — whale watching, Lime Kiln, Friday Harbor<br>
+          <strong>Seattle 1</strong> (Jul 17) — final dinner, fly home or SFO Jul 18
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Why this wins</h4>
+            <ul>
+              <li>Best weather fit — never near our 28°C ceiling</li>
+              <li>Zero jet lag + 6h direct flight</li>
+              <li>Activities sized exactly for our kids' ages</li>
+              <li>Seamlessly pairs with Cupertino (2.5h SFO hop)</li>
+              <li>True 50/50 urban/nature balance</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Honest concerns</h4>
+            <ul>
+              <li><strong>Wildfire smoke</strong> — hit 3 of last 5 summers including 2025's Bear Gulch (largest in Olympic NP history). Unhedgeable once committed.</li>
+              <li>Lot of driving — Seattle→Hurricane Ridge 2.5h, →Hoh 3h, →Anacortes 2.5h. With a toddler that adds up.</li>
+              <li>July 4 week = peak-of-peak. Hurricane Ridge parking fills by 10am.</li>
+              <li>Olympic lodges (Kalaloch, Lake Crescent) likely already booked — Port Angeles hotels / VRBO fallback.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="gallery" id="gallery-pnw">
+          <!-- photos inserted here -->
+        </div>
+
+        <details class="section-details">
+          <summary>Risks in detail</summary>
+          <p><strong>Wildfire smoke (biggest):</strong> Smoke events have persisted for weeks in recent summers. Monitor AirNow.gov, bring N95s. Early July (Jul 4–11) is lower risk than Aug–Sept.<br>
+          <strong>Sneaker waves:</strong> Olympic coast is cold (10–12°C) and has unpredictable waves that've killed adults. Keep kids within arm's reach at all coastal beaches.<br>
+          <strong>Cougar attack on 4yo at Hurricane Ridge July 2025</strong> (rare, but real). Stay on trails, keep kids close.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRITISH COLUMBIA -->
+<section id="bc" class="alt">
+  <div class="container">
+    <div class="destination">
+      <div class="dest-hero">
+        <span class="rank">#2 · 43 / 55</span>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="British Columbia">
+        <div class="overlay">
+          <h2>British Columbia</h2>
+        </div>
+      </div>
+      <div class="dest-body">
+        <p class="lead">Vancouver + Whistler + Victoria — PNW's slightly-more-international sibling. Vancouver is more walkable and has world-class Asian food; Victoria is stroller paradise; Whistler adds mountain scenery.</p>
+
+        <div class="meta-row">
+          <span class="pill good">22°C / 72°F</span>
+          <span class="pill good">6h direct</span>
+          <span class="pill good">Cupertino-friendly</span>
+          <span class="pill">~$11–13K for 2 wks</span>
+          <span class="pill warn">Wildfire smoke risk</span>
+        </div>
+
+        <div class="dest-grid">
+          <div>
+            <div class="hl-block">
+              <h4>Highlights for us</h4>
+              <ul>
+                <li><strong>Stanley Park seawall</strong> — 10km walkable waterfront, old-growth, totem poles</li>
+                <li><strong>Museum of Anthropology (UBC)</strong> — Arthur Erickson building, Northwest Coast Indigenous art</li>
+                <li><strong>Granville Island</strong> — market, breweries, galleries, waterfront</li>
+                <li><strong>Sea to Sky Gondola</strong> — suspension bridge + coastal-mountain views, halfway to Whistler</li>
+                <li><strong>Royal BC Museum + Inner Harbour (Victoria)</strong> — Canada's most photographed urban stroll</li>
+                <li><strong>Butchart Gardens</strong> — 55 acres in a former quarry; peak July bloom</li>
+              </ul>
+            </div>
+            <div class="hl-block">
+              <h4>Highlights for kids</h4>
+              <ul>
+                <li><strong>Granville Island Kids Market</strong> — iconic dedicated children's market + splash pad</li>
+                <li><strong>Stanley Park miniature train</strong> + Vancouver Aquarium belugas</li>
+                <li><strong>Sea to Sky Alpine Alley</strong> — purpose-built toddler trail with mini rock wall + slide</li>
+                <li><strong>Miniature World (Victoria)</strong> + Butterfly Gardens</li>
+                <li><strong>Science World</strong> — geodesic dome, hands-on water tables</li>
+              </ul>
+            </div>
+          </div>
+          <div class="dest-chart">
+            <canvas id="chart-bc"></canvas>
+          </div>
+        </div>
+
+        <h4>Suggested 2-week itinerary</h4>
+        <div class="itinerary">
+          <strong>Vancouver 5</strong> (Jul 4–9) — arrive, Stanley Park, Aquarium, Granville Island, Museum of Anthropology<br>
+          <strong>Whistler 3</strong> (Jul 9–12) — Sea to Sky drive, Peak 2 Peak, Valley Trail, Lost Lake<br>
+          <strong>Vancouver 2</strong> (Jul 12–14) — transit + revisit favorites<br>
+          <strong>Victoria 4</strong> (Jul 14–18) — Butchart, Royal BC Museum, Inner Harbour, Oak Bay, Beacon Hill
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Why this works</h4>
+            <ul>
+              <li>Ideal July weather (22–24°C, low humidity)</li>
+              <li>Vancouver = one of North America's most walkable cities</li>
+              <li>World-class Asian food (dim sum, ramen) kids will love</li>
+              <li>Natural Cupertino pairing — SFO↔YVR 2.5h direct</li>
+              <li>Strong at any kid age (indoors/outdoors across the spectrum)</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Honest concerns</h4>
+            <ul>
+              <li><strong>Wildfire smoke</strong> — multi-day events in 4 of last 6 summers</li>
+              <li>AC is NOT standard in older Vancouver Airbnbs — must verify</li>
+              <li>BC Ferry to Victoria is 1.5h sailing but ~4h door-to-door</li>
+              <li>Peak prices for a destination even better at ages 8–12 (hiking, kayaking unlock)</li>
+              <li>Passports required for all four travelers including the toddler</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="gallery" id="gallery-bc">
+          <!-- photos inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AZORES -->
+<section id="azores">
+  <div class="container">
+    <div class="destination">
+      <div class="dest-hero">
+        <span class="rank">#3 · 42.5 / 55</span>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Azores">
+        <div class="overlay">
+          <h2>Azores</h2>
+        </div>
+      </div>
+      <div class="dest-body">
+        <p class="lead">São Miguel, 5.5h from JFK. The unique pick — volcanic landscapes, hot springs, whale watching, world-class value at roughly half the cost of other options. The catch: no Cupertino pairing.</p>
+
+        <div class="meta-row">
+          <span class="pill good">23–25°C</span>
+          <span class="pill good">5.5h direct</span>
+          <span class="pill good">$6–9K total</span>
+          <span class="pill warn">No Cupertino</span>
+          <span class="pill warn">Weather variability</span>
+        </div>
+
+        <div class="dest-grid">
+          <div>
+            <div class="hl-block">
+              <h4>Highlights for us</h4>
+              <ul>
+                <li><strong>Sete Cidades</strong> — twin blue &amp; green crater lakes in a caldera</li>
+                <li><strong>Lagoa do Fogo</strong> — wildest crater lake; shuttle-bus required (limits crowds)</li>
+                <li><strong>Furnas geothermal valley</strong> — fumaroles, cozido stew cooked in volcanic steam, Terra Nostra thermal garden</li>
+                <li><strong>Whale watching</strong> — 20+ cetacean species; July peak for sperm whales, common dolphins</li>
+                <li><strong>Gorreana Tea Plantation</strong> — Europe's only, operating since 1883</li>
+                <li><strong>Caldeira Velha</strong> — forest waterfall cascading into warm ferrous pools</li>
+              </ul>
+            </div>
+            <div class="hl-block">
+              <h4>Highlights for kids</h4>
+              <ul>
+                <li><strong>Hot springs everywhere</strong> — Poça da Dona Beija's shallow pools are toddler heaven</li>
+                <li><strong>Pineapple plantation greenhouses</strong> — thousands of plants; kids walk among them</li>
+                <li><strong>Catamaran whale watching</strong> — gentler than zodiac; no strict age minimum</li>
+                <li><strong>Pinhal da Paz forest park</strong> — free, playground, friendly animals</li>
+                <li><strong>Natural volcanic rock pools</strong> (Mosteiros, Ferraria) — calm + shallow</li>
+              </ul>
+            </div>
+          </div>
+          <div class="dest-chart">
+            <canvas id="chart-azores"></canvas>
+          </div>
+        </div>
+
+        <h4>Suggested 2-week itinerary (São Miguel 10 + Terceira 4)</h4>
+        <div class="itinerary">
+          <strong>Ponta Delgada 5</strong> — base for west/central (Sete Cidades, Lagoa do Fogo, Gorreana, whale watching)<br>
+          <strong>Furnas 5</strong> — geothermal valley, hot springs daily, relaxed pace<br>
+          <strong>Terceira 4</strong> — inter-island flight (~30 min): Angra do Heroísmo (UNESCO), Algar do Carvão lava cave, Biscoitos natural pools
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Why this is compelling</h4>
+            <ul>
+              <li>Best value on the list by a wide margin — $6–8K likely</li>
+              <li>Ideal weather (23–25°C, low humidity)</li>
+              <li>Short flight (5.5h direct) + only 4h time diff</li>
+              <li>Hot springs = Naomi + Hannah magnet</li>
+              <li>Genuinely unique landscape — not a "we've seen it" destination</li>
+              <li>Low crowds compared to Hawaii/Europe peak</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Honest concerns</h4>
+            <ul>
+              <li><strong>Weather roulette</strong> — "four seasons in a day," fog obscures viewpoints, boat tours cancel. Real daily hassle.</li>
+              <li><strong>No Cupertino pairing</strong> — would mean two separate trips</li>
+              <li>Wrong age for best features (caldera hikes, canyoning, zodiac whale watching require 8+)</li>
+              <li>2 full weeks may feel long on one small island — Terceira extension recommended</li>
+              <li>Only 2 flights/week from JFK — cancellation = 3–4 days stranded</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="gallery" id="gallery-azores">
+          <!-- photos inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KAUAI -->
+<section id="kauai" class="alt">
+  <div class="container">
+    <div class="destination">
+      <div class="dest-hero">
+        <span class="rank">#4 · 41.3 / 55</span>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Kauai">
+        <div class="overlay">
+          <h2>Kauai</h2>
+        </div>
+      </div>
+      <div class="dest-body">
+        <p class="lead">The Hawaii pick — cleanly beats Maui for our 2026 profile (less March flood damage, better hiking variety, stronger anchor attractions for kids). The tropical option if we want resort downtime + beach access.</p>
+
+        <div class="meta-row">
+          <span class="pill good">25–27°C</span>
+          <span class="pill good">Cupertino via SFO→LIH</span>
+          <span class="pill">~$12–16K for 2 wks</span>
+          <span class="pill warn">Elevated ocean risk</span>
+          <span class="pill warn">El Niño hurricane</span>
+        </div>
+
+        <div class="dest-grid">
+          <div>
+            <div class="hl-block">
+              <h4>Highlights for us</h4>
+              <ul>
+                <li><strong>Maha'ulepu Heritage Trail</strong> — coastal trail past lithified dunes; best hike on south shore</li>
+                <li><strong>Waimea Canyon lookouts</strong> — "Grand Canyon of the Pacific," main overlook paved + stroller-OK</li>
+                <li><strong>Kuilau Ridge Trail</strong> — shaded interior ridge, picnic shelters; best toddler-compatible hike</li>
+                <li><strong>Hanapepe Friday Art Walk</strong> (5–9 PM) — galleries, live music, food trucks; aligns with our interest perfectly</li>
+                <li><strong>Kilauea Lighthouse + Wildlife Refuge</strong> — nesting seabirds (albatross, boobies)</li>
+              </ul>
+            </div>
+            <div class="hl-block">
+              <h4>Highlights for kids</h4>
+              <ul>
+                <li><strong>Na Aina Kai Botanical Gardens</strong> — dedicated Children's Garden: gecko maze, treehouse, Jack &amp; Beanstalk fountain, splash pad</li>
+                <li><strong>Lydgate Beach Park</strong> — rock-walled keiki pool with tropical fish + 30,000 sq ft playground (THE best toddler beach in Hawaii)</li>
+                <li><strong>Smith's Fern Grotto river cruise</strong> — gentle, Hawaiian music, toddler-perfect</li>
+                <li><strong>Napili/Poipu snorkeling</strong> (calm cove, sea turtles common)</li>
+                <li><strong>Kilauea Lighthouse birds</strong> + tide pools at Brennecke's</li>
+              </ul>
+            </div>
+          </div>
+          <div class="dest-chart">
+            <canvas id="chart-kauai"></canvas>
+          </div>
+        </div>
+
+        <h4>Suggested 2-week itinerary (two bases)</h4>
+        <div class="itinerary">
+          <strong>Princeville 4–5</strong> (Jul 4–8) — front-load north shore: Hanalei, Na Aina Kai, Kilauea Lighthouse, Kalalau first mile (with Naomi only)<br>
+          <strong>Transition Jul 8</strong> — Lydgate + Fern Grotto en route<br>
+          <strong>Poipu 9–10</strong> (Jul 8–18) — Waimea Canyon, Maha'ulepu, Hanapepe Art Night, Koloa, rest days. Front-load to avoid weather late-trip.
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Why Kauai (over Maui)</h4>
+            <ul>
+              <li>Much less March 2026 flood damage</li>
+              <li>Superior hiking variety (Maha'ulepu, Kuilau, Waimea Canyon, Sleeping Giant)</li>
+              <li>Anchor kid attractions unmatched in Hawaii (Na Aina Kai, Lydgate)</li>
+              <li>Hanapepe Art Walk = perfect fit for our culture interest</li>
+              <li>Slower pace, less touristy, better for "genuinely relaxing"</li>
+              <li>Clean Cupertino pairing (SFO→LIH direct on United/Hawaiian)</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Honest concerns</h4>
+            <ul>
+              <li><strong>Ocean safety:</strong> Kauai has the highest visitor drowning rate in Hawaii (~10× resident rate). Multiple beaches with 20+ fatalities. Must stick religiously to lifeguarded beaches only (Poipu, Lydgate, Hanalei Bay).</li>
+              <li><strong>El Niño hurricane risk:</strong> 61% prob El Niño develops by May–July; Central Pacific cyclones avg 6.3 (vs 3.4 neutral). Iniki ('92) hit Kauai directly.</li>
+              <li><strong>Wildfire risk elevated</strong> from March rain growth curing</li>
+              <li>No pediatric ICU on-island — medevac to Oahu for critical cases</li>
+              <li>ONE road around island, Kapa'a rush hour adds 30+ min</li>
+              <li>Higher cost than Europe options</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="gallery" id="gallery-kauai">
+          <!-- photos inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTUGAL -->
+<section id="portugal">
+  <div class="container">
+    <div class="destination">
+      <div class="dest-hero">
+        <span class="rank">#5 · 37.3 / 55</span>
+        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Portugal">
+        <div class="overlay">
+          <h2>Portugal</h2>
+        </div>
+      </div>
+      <div class="dest-body">
+        <p class="lead">Lisbon + Sintra + Porto + Douro — the culture-first pick. Scores #1 on "Highlights for us" (world-class museums, palaces, walkable historic cities) but heat ceiling is a real concern. Portugal is where we'd go if cultural depth matters most.</p>
+
+        <div class="meta-row">
+          <span class="pill warn">28°C Lisbon (at ceiling)</span>
+          <span class="pill warn">Heat wave 40–50% prob</span>
+          <span class="pill good">$8–11K total</span>
+          <span class="pill warn">Wildfire risk</span>
+          <span class="pill muted">7h direct</span>
+        </div>
+
+        <div class="dest-grid">
+          <div>
+            <div class="hl-block">
+              <h4>Highlights for us</h4>
+              <ul>
+                <li><strong>Alfama, Lisbon</strong> — labyrinthine medieval streets, fado clubs, miradouros over the Tagus</li>
+                <li><strong>Belém cultural cluster</strong> — Jerónimos Monastery (UNESCO), MAAT contemporary, Torre de Belém, Pastéis de Belém</li>
+                <li><strong>Quinta da Regaleira (Sintra)</strong> — 27m spiral initiatic well, tunnels, mystical gardens</li>
+                <li><strong>Pena Palace + Moorish Castle (Sintra)</strong> — dramatic hilltop palaces + forest trails</li>
+                <li><strong>Ribeira + Livraria Lello (Porto)</strong> — UNESCO riverside; the bookshop that inspired Rowling</li>
+                <li><strong>Douro Valley</strong> — terraced vineyards (UNESCO), river cruises</li>
+              </ul>
+            </div>
+            <div class="hl-block">
+              <h4>Highlights for kids</h4>
+              <ul>
+                <li><strong>Oceanário de Lisboa</strong> — one of world's best aquariums; 2–3 hours of toddler-level bliss</li>
+                <li><strong>Hippotrip</strong> — amphibious tour that drives into the Tagus</li>
+                <li><strong>Pavilhão do Conhecimento</strong> — hands-on science museum, indoor + AC</li>
+                <li><strong>Jardim da Estrela</strong> — playground, duck pond, shaded paths</li>
+                <li><strong>Douro boat cruise</strong> — gentle, scenic, nap-compatible</li>
+              </ul>
+            </div>
+          </div>
+          <div class="dest-chart">
+            <canvas id="chart-portugal"></canvas>
+          </div>
+        </div>
+
+        <h4>Suggested 2-week itinerary</h4>
+        <div class="itinerary">
+          <strong>Porto 4</strong> (Jul 4–8) — cooler start, Ribeira, World of Discoveries, bookshop<br>
+          <strong>Douro Valley 2</strong> (Jul 8–10) — quinta with AC + pool; mornings only outdoors<br>
+          <strong>Lisbon (Estrela/Lapa) 5</strong> (Jul 10–15) — Oceanário, Science Museum, Belém, Alfama<br>
+          <strong>Sintra overnight 2</strong> (Jul 15–17) — early palace access before crowds<br>
+          <strong>Airport area 1</strong> (Jul 17–18) — easy departure
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h4>Why Portugal</h4>
+            <ul>
+              <li>Strongest "Highlights for us" score (5/5)</li>
+              <li>World-class aquarium is one of trip's best kid activities</li>
+              <li>Portuguese culture is warm to kids (line-skipping, extra attention)</li>
+              <li>Kids under 6 free at many attractions</li>
+              <li>Excellent food (Portuguese is picky-kid-friendly: grilled chicken, bread, rice, pastéis)</li>
+              <li>Zero language friction (9th globally for English proficiency)</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h4>Honest concerns</h4>
+            <ul>
+              <li><strong>Heat is the elephant:</strong> Lisbon avg 28°C (at our ceiling); Douro 29–33°C with heat waves to 40–45°C; 40–50% prob of multi-day heat wave</li>
+              <li><strong>Cobblestones + stroller = physical grind</strong> in Lisbon and Sintra. Carrier essential</li>
+              <li><strong>Wildfire smoke risk real</strong> — Portuguese govt called summer 2026 "very tough"</li>
+              <li>5h jet lag (eastbound harder) — kids take 3–4 days to adjust</li>
+              <li>Cupertino pairing clunky — SFO-LIS only 4x/week, brutal with toddler</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="gallery" id="gallery-portugal">
+          <!-- photos inserted here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HONORABLE MENTIONS -->
+<section id="mentions" class="alt">
+  <div class="container">
+    <h2>Also researched — didn't make the top 5</h2>
+    <p class="lead">Four destinations fully researched but edged out for specific reasons. Each could move back up if the tradeoff changes.</p>
+
+    <div class="hm-grid">
+      <div class="hm-card">
+        <h3>Maui</h3>
+        <div class="score">37.5 / 55 — the original plan</div>
+        <p><strong>Why it's out:</strong> Kauai cleanly beats it for our 2026 profile. Maui has more March flood damage (Lahaina still closed, Haleakala Crater Road repairs uncertain), weaker hiking variety without Haleakala, and our kid-anchor attractions are stronger on Kauai (Na Aina Kai, Lydgate).</p>
+        <p><strong>When Maui would win:</strong> If we wanted a resort-focused trip with minimal exploration — Wailea/Kaanapali resorts are untouched and operational. But that's not our profile.</p>
+      </div>
+
+      <div class="hm-card">
+        <h3>Canadian Rockies</h3>
+        <div class="score">37.3 / 55 — scenery heavyweight, wrong age</div>
+        <p><strong>Why it's out:</strong> 85/15 nature/urban (way off our 50/50 target). Best hikes (Plain of Six Glaciers, Sentinel Pass, Skyline) require 10+ mile walkers. We'd get 40% of the destination now vs 85% at 8–12.</p>
+        <p><strong>When it would win:</strong> Bookmark for 2029–2032 when kids can do serious hikes. That's when the Rockies really pay off.</p>
+      </div>
+
+      <div class="hm-card">
+        <h3>Iceland</h3>
+        <div class="score">34.3 / 55 — volcanic + weather + cost</div>
+        <p><strong>Why it's out:</strong> Active volcanic uncertainty (IMO: new eruption "likely in coming weeks" as of April 14). 10–15°C + rain + 21-hour midnight sun wrecks toddler sleep. Cost ceiling $18K. Blue Lagoon min age 2 excludes Hannah.</p>
+        <p><strong>When it would win:</strong> With kids 10+ to unlock glacier hikes, ice caves, Silfra snorkeling, and RIB whale watching — the stuff Iceland is actually about.</p>
+      </div>
+
+      <div class="hm-card">
+        <h3>Slovenia</h3>
+        <div class="score">36.8 / 55 — beautiful, but logistics + heat</div>
+        <p><strong>Why it's out:</strong> No direct flight from NYC (12–18h door-to-door via Venice or FRA). Ljubljana July avg 27–28°C with 2025 heat wave hitting 38°C. 2 weeks requires extending to Croatia/Austria = more packing.</p>
+        <p><strong>When it would win:</strong> As a 1-week add-on from Italy or Austria, or at 10+ when serious Triglav hiking unlocks.</p>
+      </div>
+    </div>
+
+    <div class="summary-card" style="margin-top:2rem;">
+      <h3 style="margin-top:0;">Bookmark for 2027: Japan</h3>
+      <p>Japan is arguably the #1 profile match for this family — extraordinary culture, toddler-friendly infrastructure, clean everywhere, Shinkansen magic. But <strong>July is Japan's worst month</strong>: 33–35°C with 75–85% humidity, heat stroke advisories routine. The 14h flight + 13h time difference would eat 3–7 days to jet lag. Save for a spring or fall trip when the kids are older.</p>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section id="method">
+  <div class="container">
+    <h2>How we got here</h2>
+    <div class="summary-card">
+      <h4>Research methodology</h4>
+      <p>10 destinations researched at comparable depth via parallel AI agents, each pulling current (April 2026) conditions from government sources (NOAA, US State Dept, IMO, Parks Canada, NPS, Hawaii Tourism Authority), major news outlets, and family-travel specialist sites. Each destination scored 1–5 across 8 categories weighted for our specific profile.</p>
+
+      <h4>Scoring weights</h4>
+      <ul>
+        <li><strong>Highlights for us (×2):</strong> adult-fit activities — hiking, culture, history, walkable urban+nature</li>
+        <li><strong>Highlights for kids (×2):</strong> toddler + 5yo compatible activities</li>
+        <li><strong>Stress / hassle (×1.5):</strong> flights, driving, walkability, jet lag, medical, language, food, crowds</li>
+        <li><strong>Risks (×1.5):</strong> safety + weather + lodging availability + vacation-falling-through</li>
+        <li><strong>Weather fit (×1.5):</strong> vs. 28°C ceiling and toddler comfort</li>
+        <li><strong>Cost (×1):</strong> 14-night total estimate</li>
+        <li><strong>Cupertino pairing (×0.5):</strong> nice-to-have, not dealbreaker</li>
+        <li><strong>Replay / right-age fit (×1):</strong> better now vs. age 8–12</li>
+      </ul>
+
+      <h4>Key profile assumptions used</h4>
+      <ul>
+        <li>Love hiking, scenery, culture, history, walking urban+nature</li>
+        <li>Not big beach/pool people (but OK as a component)</li>
+        <li>Genuinely relaxing with young kids (minimize child stress)</li>
+        <li>Ideal 50/50 urban/nature, tolerate 70/30 either direction</li>
+        <li>28°C is pushing our heat tolerance limit</li>
+        <li>Cupertino is nice-to-have, not dealbreaker</li>
+        <li>Visited Scotland + Switzerland in 2025 — dropped from consideration</li>
+      </ul>
+    </div>
+
+    <div class="summary-card">
+      <h4>Key open questions</h4>
+      <ul>
+        <li>Weather-safety bias (PNW/BC) vs. cultural depth bias (Portugal) vs. novelty bias (Azores) vs. tropical relaxation bias (Kauai)?</li>
+        <li>Is Cupertino priority high enough to push out Azores/Portugal?</li>
+        <li>Budget ceiling — Azores opens up different tradeoffs at $6K vs. $15K for others</li>
+        <li>Hotel vs. apartment rental preference</li>
+        <li>How much does wildfire smoke risk weigh for PNW/BC (4 of 6 recent years)?</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p><strong>Prepared:</strong> 2026-04-15 · for Josh &amp; Rose · for Summer 2026 planning</p>
+    <p>All research based on sources current as of April 2026. Conditions change — recheck closer to booking (NOAA CPC ENSO, NHC Central Pacific outlook, USGS Kilauea + Iceland IMO, NIFC wildfire outlook, FireSmoke.ca for BC/PNW).</p>
+    <p style="opacity: 0.7; font-size: 0.82rem; margin-top: 1.5rem;">Photo credits listed with each image where applicable. Primary sources: Wikimedia Commons, Unsplash. See raw research files in the project directory for full citations per destination.</p>
+  </div>
+</footer>
+
+<script>
+// Radar chart config
+const categories = [
+  'Highlights for us',
+  'Highlights for kids',
+  'Stress / hassle',
+  'Risks',
+  'Weather fit',
+  'Cost',
+  'Cupertino pairing',
+  'Right-age fit'
+];
+
+const chartData = {
+  pnw:     [4.0, 4.5, 3.5, 2.5, 5.0, 4.0, 5.0, 4.0],
+  bc:      [4.5, 4.5, 3.0, 2.5, 5.0, 3.0, 4.5, 4.0],
+  azores:  [4.0, 4.0, 4.0, 3.0, 5.0, 5.0, 1.0, 3.0],
+  kauai:   [4.5, 4.5, 3.0, 2.5, 4.0, 2.5, 5.0, 4.0],
+  portugal:[5.0, 4.0, 3.0, 2.0, 2.5, 4.0, 2.0, 3.0]
+};
+
+const chartColors = {
+  pnw:     { fill: 'rgba(13, 115, 119, 0.25)', line: 'rgba(13, 115, 119, 1)' },
+  bc:      { fill: 'rgba(20, 160, 152, 0.25)', line: 'rgba(20, 160, 152, 1)' },
+  azores:  { fill: 'rgba(194, 65, 12, 0.25)', line: 'rgba(194, 65, 12, 1)' },
+  kauai:   { fill: 'rgba(15, 118, 110, 0.25)', line: 'rgba(15, 118, 110, 1)' },
+  portugal:{ fill: 'rgba(124, 45, 18, 0.25)', line: 'rgba(124, 45, 18, 1)' }
+};
+
+function makeChart(id, data, color) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: categories,
+      datasets: [{
+        label: 'Score (1–5)',
+        data: data,
+        backgroundColor: color.fill,
+        borderColor: color.line,
+        borderWidth: 2,
+        pointBackgroundColor: color.line,
+        pointRadius: 4
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          min: 0,
+          max: 5,
+          ticks: { stepSize: 1, display: false },
+          pointLabels: { font: { size: 11 } }
+        }
+      }
+    }
+  });
+}
+
+window.addEventListener('load', () => {
+  makeChart('chart-pnw', chartData.pnw, chartColors.pnw);
+  makeChart('chart-bc', chartData.bc, chartColors.bc);
+  makeChart('chart-azores', chartData.azores, chartColors.azores);
+  makeChart('chart-kauai', chartData.kauai, chartColors.kauai);
+  makeChart('chart-portugal', chartData.portugal, chartColors.portugal);
+});
+
+// Photo galleries — will be populated by photo-urls.js if present
+</script>
+<script src="photos.js"></script>
+
+</body>
+</html>
