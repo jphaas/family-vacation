@@ -76,19 +76,16 @@
   }
   .total-score { font-weight: 700; color: var(--accent); font-size: 1.05rem; }
 
-  /* Tooltip */
-  [data-tooltip] {
-    position: relative;
-  }
-  [data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  /* Tooltip (JS-positioned to escape overflow containers) */
+  .js-tooltip {
+    position: fixed; z-index: 9999; pointer-events: none;
     background: #1f2933; color: white; padding: 0.6rem 0.85rem; border-radius: 6px;
-    font-size: 0.82rem; font-weight: 400; line-height: 1.4; width: 240px; white-space: normal;
-    opacity: 0; pointer-events: none; transition: opacity 0.15s; z-index: 20;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    font-size: 0.82rem; font-weight: 400; line-height: 1.4; width: 240px;
+    opacity: 0; transition: opacity 0.12s;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
   }
-  [data-tooltip]:hover::after { opacity: 1; }
+  .js-tooltip.show { opacity: 1; }
+  [data-tooltip] { cursor: help; }
 
   /* Destination cards */
   .destination {
@@ -279,17 +276,16 @@
 <section id="top-pick">
   <div class="container">
     <h2>The short version</h2>
-    <p class="lead">10 destinations researched; 5 featured here. <strong>The top 4 are effectively tied</strong> — within 1.75 points of each other on a 50-point scale. The decision is archetype-driven, not quality-driven.</p>
+    <p class="lead">Ten destinations in the running; five featured below. <strong>The top four are effectively tied</strong> — within 1.75 points on a 50-point scale. The call is archetype, not quality.</p>
 
     <div class="summary-card top-pick">
       <h3 style="margin-top:0;">Four distinct archetypes — which matches what we want?</h3>
-      <ul style="margin: 0.5rem 0;">
-        <li><strong>Pacific Northwest</strong> — the all-rounder. Best weather, easiest logistics, Cupertino-friendly, domestic ease.</li>
-        <li><strong>Kauai</strong> — the low-stress tropical pick. Single-base itinerary wins on transitions; best accommodations.</li>
-        <li><strong>British Columbia</strong> — PNW + more international character. Vancouver is more walkable and has world-class food.</li>
-        <li><strong>Azores</strong> — the novel outlier. Volcanic landscapes, hot springs, whale watching at half the cost. No Cupertino pairing.</li>
+      <ul style="margin: 0.5rem 0 0;">
+        <li><strong>Pacific Northwest</strong> — the all-rounder. Ideal weather, easiest logistics, Cupertino-friendly, domestic ease.</li>
+        <li><strong>Kauai</strong> — the low-stress tropical pick. Single-move itinerary; top-tier resort accommodations.</li>
+        <li><strong>British Columbia</strong> — more international character than PNW. Vancouver is more walkable and has world-class food.</li>
+        <li><strong>Azores</strong> — the novel outlier. Volcanic landscapes, hot springs, whale watching at roughly half the cost. No Cupertino pairing.</li>
       </ul>
-      <p style="margin-bottom:0;">Maui also makes the top 5 as a comparison reference. Portugal, the strongest culture fit, drops to honorable mentions — heat ceiling + weaker accommodations + (per updated weights) less leverage on its strong "highlights for us" category.</p>
     </div>
   </div>
 </section>
@@ -386,7 +382,7 @@
       </table>
     </div>
 
-    <p class="lead" style="margin-top:1.5rem;font-size:0.88rem;"><em>Category weights: Us ×1.5 · Kids ×1 · Stress ×1.5 · Risks ×1.5 · Weather ×1 · Cost ×1 · Cupertino ×0.5 · Age-fit ×1 · Accommodations ×1. Max possible = 50. (Updated from initial version based on Josh's feedback.)</em></p>
+    <p class="lead" style="margin-top:1.5rem;font-size:0.88rem;"><em>Category weights: Us ×1.5 · Kids ×1 · Stress ×1.5 · Risks ×1.5 · Weather ×1 · Cost ×1 · Cupertino ×0.5 · Age-fit ×1 · Accommodations ×1. Max possible = 50.</em></p>
 
     <details class="score-drill">
       <summary>Why these scores? Drill down by destination</summary>
@@ -395,7 +391,7 @@
         <div class="rationale-grid">
           <div class="cat">Us</div><div>Strong urban+nature mix (Pike Place, MoPOP, Hoh, Hurricane Ridge, San Juans). Culture less deep than Europe. <em>Natural 50/50 fit.</em></div><div class="score">4.0</div>
           <div class="cat">Kids</div><div>Pacific Science Center "Just for Tots", Aquarium, ferries, tide pools, Sol Duc hot springs — calibrated exactly for these ages.</div><div class="score">4.5</div>
-          <div class="cat">Stress</div><div>6h direct flight, minimal jet lag — great. BUT drive-heavy: Seattle↔Hurricane Ridge 2.5h, ↔Hoh 3h. Revised itinerary to 3 bases (5+5+4 nights) helps but driving persists.</div><div class="score">3.0</div>
+          <div class="cat">Stress</div><div>6h direct flight, minimal jet lag. Drive-heavy: Seattle↔Hurricane Ridge 2.5h, ↔Hoh 3h. 3-base itinerary (5+5+4 nights) keeps transitions low but day-trip driving persists.</div><div class="score">3.0</div>
           <div class="cat">Risks</div><div>Wildfire smoke hit 3 of last 5 summers. Early July is pre-peak but not zero. Sneaker waves on coast (deadly). Peak July 4 crowds.</div><div class="score">2.5</div>
           <div class="cat">Weather</div><div>Ideal — Seattle 75°F, Olympic coast 63–68°F, San Juans 70–75°F. Never near our 82°F ceiling. Heat dome possible but rare.</div><div class="score">5.0</div>
           <div class="cat">Cost</div><div>$7.5–12K floor/ceiling. Mid-range option; domestic = no currency friction.</div><div class="score">4.0</div>
@@ -410,7 +406,7 @@
         <div class="rationale-grid">
           <div class="cat">Us</div><div>Maha'ulepu trail, Waimea Canyon, Kuilau Ridge — strong hiking. Hanapepe Friday Art Walk adds genuine culture. Stronger than Maui here.</div><div class="score">4.5</div>
           <div class="cat">Kids</div><div>Na Aina Kai Children's Garden (gecko maze, treehouse), Lydgate keiki pool — rare anchor attractions purpose-built for toddlers.</div><div class="score">4.5</div>
-          <div class="cat">Stress</div><div><strong>The transition winner.</strong> 2-base itinerary (Princeville 4–5, Poipu 9–10) is the gold standard. Direct SFO flight easy. Only penalty: long flight from NYC + one-road driving.</div><div class="score">4.0</div>
+          <div class="cat">Stress</div><div><strong>The lowest-transition option.</strong> 2-base itinerary: Princeville 4 nights, Poipu 10 nights — only one hotel move in two weeks. Direct SFO flight. Main friction: long flight from NYC + one-road driving on Kauai.</div><div class="score">4.0</div>
           <div class="cat">Risks</div><div>Elevated ocean risk (highest drowning rate in HI — 10× residents). El Niño hurricane risk. No pediatric ICU. March flood recovery mostly complete but north shore road vulnerable.</div><div class="score">2.5</div>
           <div class="cat">Weather</div><div>77–81°F July typical, trade winds. Slight stretch vs. 82°F ceiling but humid warmth ≠ dry heat. Box jellyfish Jul 7–9 warning window overlaps arrival.</div><div class="score">4.0</div>
           <div class="cat">Cost</div><div>$12–16K typical for Hawaii. Higher than continental options. Flights + lodging are the biggest drivers.</div><div class="score">2.5</div>
@@ -425,7 +421,7 @@
         <div class="rationale-grid">
           <div class="cat">Us</div><div>Vancouver is genuinely walkable + world-class Asian food. Museum of Anthropology, Stanley Park, Butchart. Stronger urban component than PNW.</div><div class="score">4.5</div>
           <div class="cat">Kids</div><div>Granville Island Kids Market, Vancouver Aquarium, Sea to Sky Gondola kid trail, Miniature World — strong across the board.</div><div class="score">4.5</div>
-          <div class="cat">Stress</div><div>6h flight, 3h jet lag. Ferry to Victoria adds logistics (1.5h sailing, ~4h door-to-door). Revised 3-base itinerary (Vancouver 7, Whistler 3, Victoria 4).</div><div class="score">3.0</div>
+          <div class="cat">Stress</div><div>6h flight, 3h jet lag. Ferry to Victoria adds logistics (1.5h sailing, ~4h door-to-door). 3-base itinerary: Vancouver 7, Whistler 3, Victoria 4.</div><div class="score">3.0</div>
           <div class="cat">Risks</div><div><strong>Wildfire smoke worse than PNW — events in 4 of last 6 summers.</strong> Heat dome possible. AC not standard in older Airbnbs — must verify.</div><div class="score">2.5</div>
           <div class="cat">Weather</div><div>Vancouver 72°F, Whistler 66–73°F, Victoria 72°F. Ideal, driest sunniest month.</div><div class="score">5.0</div>
           <div class="cat">Cost</div><div>$10–15K midrange. Canadian dollar helps slightly. Whistler is expensive.</div><div class="score">3.0</div>
@@ -443,7 +439,7 @@
           <div class="cat">Stress</div><div>5.5h direct JFK-PDL, 4h jet lag. Small island, easy driving. 3-base itinerary (all 4+ nights). Weather unpredictability is biggest daily hassle.</div><div class="score">4.0</div>
           <div class="cat">Risks</div><div>Low volcanic (no Sao Miguel eruption since 1652). Weather cancels boat tours. Only 2 flights/week from JFK = cancellation exposure.</div><div class="score">3.0</div>
           <div class="cat">Weather</div><div>73–77°F highs. Well under ceiling. BUT "four seasons in a day" microclimate volatility is a daily logistics burden.</div><div class="score">5.0</div>
-          <div class="cat">Cost</div><div><strong>Best value on the list.</strong> $6–8K likely. Apartments €60–120/night; food cheap.</div><div class="score">5.0</div>
+          <div class="cat">Cost</div><div>$6–8K likely — the most affordable option by a wide margin. Apartments €60–120/night; food cheap.</div><div class="score">5.0</div>
           <div class="cat">Cupertino</div><div>No direct SFO-PDL. Every routing adds 4–8h. Treat as separate trips.</div><div class="score">1.0</div>
           <div class="cat">Age-fit</div><div>Good now (hot springs, gentle walks). Better at 8–12 for caldera hikes, zodiac whale watching, canyoning.</div><div class="score">3.0</div>
           <div class="cat">Accomm</div><div>Variable — newer apartments good but older ones can be dated/musty. Azores humidity is a factor. Tourism boom = peak inventory tight.</div><div class="score">3.0</div>
@@ -455,13 +451,13 @@
         <div class="rationale-grid">
           <div class="cat">Us</div><div>Road to Hana, Iao Valley, upcountry towns, Ocean Center. BUT Haleakala summit + Lahaina compromised in 2026. Weaker variety than Kauai.</div><div class="score">3.5</div>
           <div class="cat">Kids</div><div>Maui Ocean Center, beaches, Old Lahaina Luau, Surfing Goat Dairy. Solid, less kid-anchor-destination than Kauai.</div><div class="score">4.0</div>
-          <div class="cat">Stress</div><div>Resort-based single-or-two-base option is low-transition. Direct SFO flight. Best on stress among HI options <em>if</em> we commit to resort style.</div><div class="score">3.5</div>
+          <div class="cat">Stress</div><div>Resort-based single or two-base option is low-transition. Direct SFO flight. Low-stress among Hawaii options if we commit to a resort-focused trip.</div><div class="score">3.5</div>
           <div class="cat">Risks</div><div>El Niño hurricane (moderate). Wildfire fuel load from March rain growth. No pediatric ICU. Lahaina area = wildfire re-risk in 2026.</div><div class="score">2.0</div>
           <div class="cat">Weather</div><div>77–82°F with trade winds. Right at ceiling.</div><div class="score">4.0</div>
           <div class="cat">Cost</div><div>$12–16K. Wailea/Kaanapali resorts expensive peak season.</div><div class="score">2.5</div>
           <div class="cat">Cupertino</div><div>SFO→OGG direct. Seamless.</div><div class="score">5.0</div>
-          <div class="cat">Age-fit</div><div>Resort-tropical works well now.</div><div class="score">4.0</div>
-          <div class="cat">Accomm</div><div>Wailea/Kaanapali resorts are upscale, pristine, family-tested. Some of the best lodging quality on this list.</div><div class="score">4.5</div>
+          <div class="cat">Age-fit</div><div>Resort-tropical fits this age well.</div><div class="score">4.0</div>
+          <div class="cat">Accomm</div><div>Wailea/Kaanapali resorts are upscale, pristine, family-tested — among the strongest lodging anywhere on this list.</div><div class="score">4.5</div>
         </div>
       </div>
     </details>
@@ -540,16 +536,16 @@
           </div>
         </div>
 
-        <h4>Suggested 2-week itinerary <span class="badge">revised: fewer transitions</span></h4>
+        <h4>Suggested 2-week itinerary</h4>
         <div class="itinerary">
-          <strong>Seattle 5 nights</strong> (Jul 4–9) — arrival, Pike Place, Science Center, Chihuly, MoPOP, Aquarium, Discovery Park, Bainbridge ferry day-trip<br>
-          <strong>Port Angeles 5 nights</strong> (Jul 9–14) — Hurricane Ridge, Sol Duc + falls, Hoh Rain Forest (day-trip 1.5h each way), Lake Crescent, Sequim lavender<br>
-          <strong>San Juan Island 4 nights</strong> (Jul 14–18) — whale watching, Lime Kiln, Friday Harbor, Roche Harbor, fly home from Seattle Jul 18 via morning ferry + drive
+          <strong>Seattle · 5 nights</strong> (Jul 4–9) — arrival, Pike Place, Science Center, Chihuly, MoPOP, Aquarium, Discovery Park, Bainbridge ferry day-trip<br>
+          <strong>Port Angeles · 5 nights</strong> (Jul 9–14) — Hurricane Ridge, Sol Duc + falls, Hoh Rain Forest (day-trip 1.5h each way), Lake Crescent, Sequim lavender<br>
+          <strong>San Juan Island · 4 nights</strong> (Jul 14–18) — whale watching, Lime Kiln, Friday Harbor, Roche Harbor; fly home from Seattle Jul 18 via morning ferry + drive
         </div>
-        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>3 bases, no stay under 4 nights. Port Angeles base absorbs Hoh + Hurricane Ridge via day trips (longer drives than a moving itinerary, but zero packing/unpacking churn). Ruby Beach becomes Hoh-day detour or separate quick day.</em></p>
+        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>Three bases, minimum four nights each. Port Angeles absorbs Hoh + Hurricane Ridge as day trips (longer drives than a moving itinerary, but no packing/unpacking churn). Ruby Beach becomes a Hoh-day detour or a short separate day.</em></p>
 
         <div class="accomm-block">
-          <h4>Accommodations outlook for Rose</h4>
+          <h4>Accommodations outlook</h4>
           <p><strong>Reliable.</strong> Seattle hotels + Airbnbs in Ballard/Queen Anne are uniformly clean and modern. Olympic options include Kalaloch Lodge (oceanfront, well-maintained but older property; cabins with kitchenettes) and Lake Crescent Lodge (1915 historic but cared-for). If older lodges feel off: Port Angeles hotels (Red Lion, Olympic Lodge) and VRBO cabins near Sequim are modern and reliable. San Juan Island has good VRBO inventory in Friday Harbor. US standards throughout — bug/grime risk low.</p>
         </div>
 
@@ -589,14 +585,14 @@
               <li>Kid activities purpose-built for these ages</li>
               <li>Seamless Cupertino bookend (2.5h SFO hop)</li>
               <li>True 50/50 urban/nature balance</li>
-              <li>Revised to 3 bases (5+5+4 nights) — reasonable transition count</li>
+              <li>Three bases, no stay under four nights</li>
             </ul>
           </div>
           <div class="cons">
             <h4>Honest concerns</h4>
             <ul>
               <li>Wildfire smoke risk real but moderate — see drill-down above</li>
-              <li>Even with revised itinerary, Port Angeles base means 1.5h+ day trips for Hoh</li>
+              <li>Port Angeles base means 1.5h+ day trips for Hoh</li>
               <li>July 4 week = peak crowds at marquee sites</li>
               <li>Olympic lodges may be fully booked already</li>
             </ul>
@@ -621,7 +617,7 @@
         </div>
       </div>
       <div class="dest-body">
-        <p class="lead">The low-stress tropical pick. Single-move itinerary (2 bases, 4+ and 9+ nights) is the lowest-churn option on the list. Beats Maui on hiking variety, kid anchors, and less flood damage.</p>
+        <p class="lead">The low-stress tropical pick. A single-move itinerary (two bases, four + ten nights) keeps transitions minimal. Stronger than Maui on hiking variety and toddler-anchor attractions, with less 2026 storm damage.</p>
 
         <div class="meta-row">
           <span class="pill good">77–81°F</span>
@@ -681,16 +677,16 @@
           </div>
         </div>
 
-        <h4>Suggested 2-week itinerary <span class="badge badge-new">2 bases — the low-churn winner</span></h4>
+        <h4>Suggested 2-week itinerary</h4>
         <div class="itinerary">
-          <strong>Princeville 4 nights</strong> (Jul 4–8) — front-load north shore while it's accessible: Hanalei, Na Aina Kai, Kilauea Lighthouse, Kalalau first mile (Naomi only)<br>
-          <strong>Transition day Jul 8</strong> — Lydgate + Fern Grotto en route to Poipu<br>
-          <strong>Poipu 10 nights</strong> (Jul 8–18) — Waimea Canyon, Maha'ulepu, Hanapepe Art Night, Koloa town, Kuilau Ridge, multiple rest days + resort downtime
+          <strong>Princeville · 4 nights</strong> (Jul 4–8) — north shore: Hanalei, Na Aina Kai, Kilauea Lighthouse, Kalalau first mile (Naomi only)<br>
+          <strong>Transition · Jul 8</strong> — Lydgate + Fern Grotto en route to Poipu<br>
+          <strong>Poipu · 10 nights</strong> (Jul 8–18) — Waimea Canyon, Maha'ulepu, Hanapepe Art Night, Koloa town, Kuilau Ridge, rest days, resort downtime
         </div>
-        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>Only 1 hotel change in 2 weeks. Front-loading Princeville hedges the vulnerable north shore road — if it closes later, we've already been there. Poipu as long-base allows proper resort downtime and rest days.</em></p>
+        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>One hotel change in two weeks. Front-loading Princeville hedges the vulnerable north-shore road — if it closes later in the trip, we've already been. Poipu as long-base allows resort downtime and rest days.</em></p>
 
         <div class="accomm-block">
-          <h4>Accommodations outlook for Rose</h4>
+          <h4>Accommodations outlook</h4>
           <p><strong>Excellent.</strong> Grand Hyatt Kauai (Poipu) is widely considered one of the best family resorts in Hawaii — pristine, serious pool complex (waterslides, saltwater lagoon), attentive service. Koloa Landing Resort is a condo-style alternative with kitchens, 2BR villas, modern spotless units. Sheraton Kauai Coconut Beach is a lower-cost option. Princeville options include 1 Hotel Hanalei Bay (new-build 2023, ultra-clean modern), Westin Princeville Ocean Resort (condos with kitchens), St. Regis (premium). Hawaiian resort standards are consistently high — humidity exists but bug/grime isn't a meaningful risk at this tier.</p>
         </div>
 
@@ -820,16 +816,16 @@
           </div>
         </div>
 
-        <h4>Suggested 2-week itinerary <span class="badge">revised: 3 bases</span></h4>
+        <h4>Suggested 2-week itinerary</h4>
         <div class="itinerary">
-          <strong>Vancouver 7 nights</strong> (Jul 4–11) — settle in, Stanley Park, Granville Island, Aquarium, MoA, Sea to Sky day-trip, Science World rainy-day backup<br>
-          <strong>Whistler 3 nights</strong> (Jul 11–14) — gondolas, Valley Trail, Lost Lake, village playgrounds<br>
-          <strong>Victoria 4 nights</strong> (Jul 14–18) — ferry over via Tsawwassen, Butchart, Royal BC Museum, Inner Harbour, Butterfly Gardens
+          <strong>Vancouver · 7 nights</strong> (Jul 4–11) — settle in, Stanley Park, Granville Island, Aquarium, MoA, Sea to Sky day-trip, Science World rainy-day backup<br>
+          <strong>Whistler · 3 nights</strong> (Jul 11–14) — gondolas, Valley Trail, Lost Lake, village playgrounds<br>
+          <strong>Victoria · 4 nights</strong> (Jul 14–18) — ferry over via Tsawwassen, Butchart, Royal BC Museum, Inner Harbour, Butterfly Gardens
         </div>
-        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>3 bases. Whistler is 3 nights (under our 4-night ideal but justifiable — it's a short-duration activity hub). Avoids returning to Vancouver mid-trip by ferrying Whistler → Vancouver → Victoria in one day (2h drive + ferry).</em></p>
+        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>Three bases. Whistler at 3 nights is shorter than ideal, but Whistler works best as a concentrated activity hub. Transitioning Whistler → Victoria in a single day (2h drive + ferry) avoids a pointless return to Vancouver.</em></p>
 
         <div class="accomm-block">
-          <h4>Accommodations outlook for Rose</h4>
+          <h4>Accommodations outlook</h4>
           <p><strong>Strong.</strong> Vancouver: Westin Bayshore (pool, waterfront, family-friendly), Coast Coal Harbour, Pan Pacific — all uniformly modern and clean. Avoid some older Kitsilano/Mount Pleasant Airbnbs that may lack AC (critical to verify for heat dome risk). Whistler: Pan Pacific Whistler Village Centre or Whistler Peak Lodge (both clean modern condos with kitchens). Victoria: Hotel Grand Pacific, Inn at Laurel Point, Delta Victoria — all family-friendly with pools, modern standards. Canadian hotel standards are uniformly high.</p>
         </div>
 
@@ -959,15 +955,15 @@
 
         <h4>Suggested 2-week itinerary</h4>
         <div class="itinerary">
-          <strong>Ponta Delgada 5 nights</strong> (Jul 4–9) — base for west + central: Sete Cidades, Lagoa do Fogo, Gorreana, whale watching<br>
-          <strong>Furnas 5 nights</strong> (Jul 9–14) — immersive geothermal base; slower pace, daily hot springs, Lagoa das Furnas, Parque Terra Nostra<br>
-          <strong>Terceira 4 nights</strong> (Jul 14–18) — inter-island flight (~30 min): Angra do Heroísmo (UNESCO), Algar do Carvão lava cave, Biscoitos natural pools
+          <strong>Ponta Delgada · 5 nights</strong> (Jul 4–9) — base for west + central: Sete Cidades, Lagoa do Fogo, Gorreana, whale watching<br>
+          <strong>Furnas · 5 nights</strong> (Jul 9–14) — immersive geothermal base; slower pace, daily hot springs, Lagoa das Furnas, Parque Terra Nostra<br>
+          <strong>Terceira · 4 nights</strong> (Jul 14–18) — inter-island flight (~30 min): Angra do Heroísmo (UNESCO), Algar do Carvão lava cave, Biscoitos natural pools
         </div>
-        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>3 bases, all 4+ nights. Alternative: skip Terceira and stay 9–14 nights on São Miguel (risk of feeling repetitive after day 9). Inter-island flight adds one connection day but SATA is short and efficient.</em></p>
+        <p style="font-size:0.88rem;color:var(--muted);margin-top:-0.3rem;"><em>Three bases, all four+ nights. Alternative: skip Terceira and stay the full two weeks on São Miguel (risks feeling repetitive after day 9). The inter-island SATA flight adds one connection day but is short and efficient.</em></p>
 
         <div class="accomm-block">
-          <h4>Accommodations outlook for Rose <span class="badge">concern area</span></h4>
-          <p><strong>Mixed.</strong> The Azores have a smaller pool of top-tier properties than Hawaii/PNW/BC. Newer apartment-style rentals in Ponta Delgada center (post-2020 builds) are clean, modern, and reliable — target these. Older guesthouses and apartments can feel dated, musty, or dim; humidity is a real factor. Specific strong options: Azor Hotel (modern 4-star in Ponta Delgada), Furnas Boutique Hotel (thermal spa on-site, modern build), White Exclusive Suites (Mosteiros, modern coastal). Avoid older-generation Airbnbs without recent photos + reviews. Tourism boom = best places book fast. <strong>This is the weakest category of this destination for Rose.</strong></p>
+          <h4>Accommodations outlook</h4>
+          <p><strong>Mixed.</strong> The Azores have a smaller pool of top-tier properties than Hawaii, PNW, or BC. Newer apartment-style rentals in Ponta Delgada center (post-2020 builds) are clean, modern, and reliable — target these. Older guesthouses and apartments can feel dated, musty, or dim; humidity is a real factor. Specific strong options: Azor Hotel (modern 4-star in Ponta Delgada), Furnas Boutique Hotel (thermal spa on-site, modern build), White Exclusive Suites (Mosteiros, modern coastal). Avoid older-generation Airbnbs without recent photos and reviews. Tourism boom means the best places book fast. <strong>This is the weakest category for this destination.</strong></p>
         </div>
 
         <h4>Risks in detail</h4>
@@ -1032,7 +1028,7 @@
         </div>
       </div>
       <div class="dest-body">
-        <p class="lead">The original plan — included here for comparison. Strong accommodations (Wailea/Kaanapali resorts are pristine and family-tested), but Kauai beats it on hiking variety, kid anchors, and less 2026 flood damage. Still viable if we want a single-resort-base trip.</p>
+        <p class="lead">The resort-anchored Hawaii option. Wailea and Kaanapali resorts are pristine and family-tested; if we want a single-base trip focused on pool, beach, and low-effort excursions, Maui delivers the most polished version of that on the list. Kauai edges ahead overall on hiking variety, kid anchors, and less 2026 storm damage.</p>
 
         <div class="meta-row">
           <span class="pill good">77–82°F (at ceiling)</span>
@@ -1092,14 +1088,14 @@
 
         <h4>Suggested 2-week itinerary</h4>
         <div class="itinerary">
-          <strong>Single-base Wailea 14 nights</strong> (Jul 4–18) — the low-stress option. Resort as home base; day trips to Iao, Twin Falls, Ocean Center, upcountry.<br>
-          <em>OR</em><br>
-          <strong>Two-base: West side 7 (Kapalua/Napili) + South 7 (Wailea/Kihei)</strong> — slightly more variety, one move midway
+          <strong>Single base · Wailea 14 nights</strong> (Jul 4–18) — lowest-stress option. Resort as home base; day trips to Iao Valley, Twin Falls, Ocean Center, upcountry.<br>
+          <em>Or two bases:</em><br>
+          <strong>West · 7 nights (Kapalua/Napili) + South · 7 nights (Wailea/Kihei)</strong> — more variety, one move midway
         </div>
 
         <div class="accomm-block">
-          <h4>Accommodations outlook for Rose</h4>
-          <p><strong>Excellent.</strong> Wailea and Kaanapali are where Maui resort standards shine — pristine, upscale, family-tested. Four Seasons Maui, Grand Wailea, Fairmont Kea Lani, Andaz Maui, Hyatt Regency Maui (Kaanapali), Montage Kapalua Bay — all reliably clean and modern. Many offer kids' clubs and family pool complexes. If resort prices are too high, Wailea Beach Villas or Honua Kai (Kaanapali) are condo-style with kitchens at ~$500–700/night. Among the strongest accommodation options on the entire list.</p>
+          <h4>Accommodations outlook</h4>
+          <p><strong>Excellent — among the best on this list.</strong> Wailea and Kaanapali are where Maui resort standards shine: pristine, upscale, family-tested. Four Seasons Maui, Grand Wailea, Fairmont Kea Lani, Andaz Maui, Hyatt Regency Maui (Kaanapali), Montage Kapalua Bay — all reliably clean and modern, most with kids' clubs and family pool complexes. At a lower price point, Wailea Beach Villas and Honua Kai (Kaanapali) are condo-style with kitchens around $500–700/night.</p>
         </div>
 
         <h4>Risks in detail</h4>
@@ -1120,23 +1116,23 @@
 
         <div class="pros-cons">
           <div class="pros">
-            <h4>Why Maui (vs Kauai)</h4>
+            <h4>Where Maui is strongest</h4>
             <ul>
               <li>Strongest resort-level accommodations in Hawaii (Wailea)</li>
               <li>Lower ocean-drowning risk than Kauai</li>
-              <li>More dining variety than Kauai</li>
-              <li>Maui Ocean Center > Kauai aquarium options</li>
-              <li>If we commit to single-resort-base: lowest stress option</li>
+              <li>More dining variety</li>
+              <li>Maui Ocean Center is a stronger aquarium than any on Kauai</li>
+              <li>If we commit to a single-resort-base trip: lowest stress on the list</li>
             </ul>
           </div>
           <div class="cons">
-            <h4>Why Kauai wins for us</h4>
+            <h4>Where Kauai edges ahead</h4>
             <ul>
               <li>Less March 2026 flood damage</li>
               <li>Hanapepe Art Walk + Na Aina Kai Children's Garden have no Maui equivalent</li>
               <li>Better hiking variety for adults</li>
-              <li>Quieter/slower pace matches "genuinely relaxing"</li>
-              <li>Wildfire risk concentrated near Lahaina (which we'd want to avoid anyway)</li>
+              <li>Quieter / slower pace matches "genuinely relaxing"</li>
+              <li>Wildfire risk on Maui concentrated near Lahaina (which we'd want to avoid anyway)</li>
             </ul>
           </div>
         </div>
@@ -1157,30 +1153,30 @@
       <div class="hm-card">
         <h3>Portugal</h3>
         <div class="score">33.0 / 50 — highest "Us" score of any destination</div>
-        <p><strong>The cultural deep-dive option.</strong> Lisbon + Sintra + Porto + Douro scores a 5/5 on "highlights for us" — the highest on our list. Oceanário is a world-class kid aquarium.</p>
-        <p><strong>Why it's out:</strong> Heat ceiling is the killer — Lisbon averages 82°F in July with 40–50% probability of a multi-day heat wave (2025 hit 100°F+ for 20 consecutive days). Douro Valley regularly 85–91°F. Cobblestones are brutal with a stroller. Accommodations tier weaker (older apartments variable). Updated scoring with lower "highlights for us" weight + accommodations dimension + heat penalty drops it out.</p>
-        <p><strong>When Portugal would win:</strong> September visit (shoulder season, 75°F), kids age 8+ (cobblestones manageable, cultural content engages). Bookmark for 2028.</p>
+        <p><strong>The cultural deep-dive option.</strong> Lisbon + Sintra + Porto + Douro scores a 5/5 on "highlights for us" — the highest on our list. The Oceanário is a world-class kid aquarium.</p>
+        <p><strong>Why it's not in the top 5:</strong> Heat is the killer. Lisbon averages 82°F in July with a 40–50% probability of a multi-day heat wave (2025 hit 100°F+ for 20 consecutive days). The Douro Valley regularly hits 85–91°F. Cobblestones are brutal with a stroller. Accommodations are a weaker tier (older apartments variable).</p>
+        <p><strong>When Portugal would win:</strong> September (shoulder season, ~75°F) or when the kids are 8+ (cobblestones manageable, cultural content engages). Bookmark for 2028.</p>
       </div>
 
       <div class="hm-card">
         <h3>Canadian Rockies</h3>
         <div class="score">33.0 / 50 — scenery heavyweight, wrong age</div>
-        <p><strong>Why it's out:</strong> 85/15 nature/urban (way off our 50/50 target). Best hikes (Plain of Six Glaciers, Sentinel Pass, Skyline) require 10+ mile walkers. We'd get 40% of the destination now vs 85% at 8–12.</p>
-        <p><strong>When it would win:</strong> Bookmark for 2029–2032 when kids can do serious hikes.</p>
+        <p><strong>Why it's not in the top 5:</strong> 85/15 nature/urban, well off our 50/50 target. The best hikes (Plain of Six Glaciers, Sentinel Pass, Skyline) require 10+ mile walkers. We'd experience roughly 40% of the destination now versus 85% at 8–12.</p>
+        <p><strong>When it would win:</strong> Bookmark for 2029–2032 when the kids can do serious hikes.</p>
       </div>
 
       <div class="hm-card">
         <h3>Iceland</h3>
         <div class="score">30.25 / 50 — volcanic + cold + cost</div>
-        <p><strong>Why it's out:</strong> Active volcanic uncertainty (IMO: new eruption "likely in coming weeks" as of April 14). 55°F + rain + 21-hour midnight sun wrecks toddler sleep. Cost ceiling $18K. Blue Lagoon min age 2 excludes Hannah.</p>
-        <p><strong>When it would win:</strong> Kids 10+ to unlock glacier hikes, ice caves, Silfra snorkeling, RIB whale watching — the stuff Iceland is actually about.</p>
+        <p><strong>Why it's not in the top 5:</strong> Active volcanic uncertainty — IMO says a new eruption is "likely in coming weeks" as of mid-April. 55°F + rain + 21-hour midnight sun wrecks toddler sleep. Cost ceiling around $18K. Blue Lagoon's age-2 minimum excludes Hannah.</p>
+        <p><strong>When it would win:</strong> With kids 10+ to unlock glacier hikes, ice caves, Silfra snorkeling, and RIB whale watching — the stuff Iceland is actually about.</p>
       </div>
 
       <div class="hm-card">
         <h3>Slovenia</h3>
-        <div class="score">32.75 / 50 — beautiful but logistics + heat</div>
-        <p><strong>Why it's out:</strong> No direct flight from NYC (12–18h door-to-door via Venice or FRA). Ljubljana July avg 81–82°F with 2025 heat wave hitting 101°F. 2 weeks requires extending to Croatia/Austria = more packing.</p>
-        <p><strong>When it would win:</strong> 1-week add-on from Italy or Austria, or at 10+ for serious Triglav hiking.</p>
+        <div class="score">32.75 / 50 — beautiful, but logistics + heat</div>
+        <p><strong>Why it's not in the top 5:</strong> No direct flight from NYC (12–18h door-to-door via Venice or Frankfurt). Ljubljana July average is 81–82°F and the 2025 heat wave hit 101°F. Filling two weeks requires extending to Croatia or Austria, which means more packing.</p>
+        <p><strong>When it would win:</strong> A one-week add-on from Italy or Austria, or at 10+ for serious Triglav hiking.</p>
       </div>
     </div>
 
@@ -1199,41 +1195,41 @@
       <h4>Research methodology</h4>
       <p>10 destinations researched at comparable depth via parallel AI agents, each pulling current (April 2026) conditions from government sources (NOAA, US State Dept, IMO, Parks Canada, NPS, Hawaii Tourism Authority), major news outlets, and family-travel specialist sites. Each destination scored 1–5 across 9 categories weighted for our specific profile.</p>
 
-      <h4>Scoring weights <span class="badge">v2</span></h4>
+      <h4>Scoring weights</h4>
       <ul>
-        <li><strong>Highlights for us (×1.5):</strong> adult-fit activities — hiking, culture, history, walkable urban+nature</li>
+        <li><strong>Highlights for us (×1.5):</strong> adult-fit activities — hiking, culture, history, walkable urban + nature</li>
         <li><strong>Highlights for kids (×1):</strong> toddler + 5yo compatible activities</li>
-        <li><strong>Stress / hassle (×1.5):</strong> flights, driving, walkability, jet lag, medical, language, food, crowds, <em>hotel transitions</em></li>
+        <li><strong>Stress / hassle (×1.5):</strong> flights, driving, walkability, jet lag, medical, language, food, crowds, hotel transitions</li>
         <li><strong>Risks (×1.5):</strong> safety + weather + lodging availability + vacation-falling-through</li>
         <li><strong>Weather fit (×1):</strong> vs. 82°F ceiling</li>
         <li><strong>Cost (×1):</strong> 14-night total estimate</li>
         <li><strong>Cupertino pairing (×0.5):</strong> nice-to-have, not dealbreaker</li>
         <li><strong>Replay / right-age fit (×1):</strong> better now vs. age 8–12</li>
-        <li><strong>Accommodations (×1) — NEW:</strong> availability of clean, modern, low-bug/grime places matching Rose's standards</li>
+        <li><strong>Accommodations (×1):</strong> availability of clean, modern lodging that holds up for a two-week family stay</li>
       </ul>
-      <p><em>Max possible = 50. Updates from v1: highlights weights reduced, weather weight reduced, accommodations added, stress recalibrated to penalize short hotel stays.</em></p>
+      <p><em>Max possible = 50.</em></p>
 
       <h4>Key profile assumptions</h4>
       <ul>
         <li>Love hiking, scenery, culture, history, walking urban + nature</li>
-        <li>Not big beach/pool people (but OK as a component)</li>
-        <li>Genuinely relaxing with young kids (minimize stress)</li>
-        <li>Ideal 50/50 urban/nature, tolerate 70/30 either direction</li>
+        <li>Not big beach/pool people — OK as a component, not the point</li>
+        <li>Genuinely relaxing with young kids (minimize child stress)</li>
+        <li>Ideal 50/50 urban/nature, tolerate 70/30 in either direction</li>
         <li>82°F (28°C) is pushing our heat tolerance limit</li>
-        <li>Cupertino is nice-to-have, not dealbreaker</li>
-        <li>Fewer hotel transitions = significantly less stress</li>
-        <li>Rose has low tolerance for dated/dirty/buggy accommodations</li>
-        <li>Visited Scotland + Switzerland in 2025 — dropped from consideration</li>
+        <li>Cupertino is nice-to-have, not a dealbreaker</li>
+        <li>Fewer hotel transitions matters — short stays are stressful</li>
+        <li>Low tolerance for dated, buggy, or worn accommodations</li>
+        <li>Scotland and Switzerland (visited 2025) are out of consideration</li>
       </ul>
     </div>
 
     <div class="summary-card">
-      <h4>Key open questions</h4>
+      <h4>Questions to talk through</h4>
       <ul>
-        <li>Preference: weather safety (PNW/BC) vs. transition-minimized (Kauai) vs. novelty (Azores) vs. resort comfort (Maui)?</li>
-        <li>How much does wildfire smoke risk weigh for PNW/BC (3–4 of last 6 summers)?</li>
-        <li>Budget ceiling — Azores at $6–8K opens very different tradeoffs vs others at $10–16K</li>
-        <li>Hotel vs. apartment rental preference (matters for Azores/Portugal especially)</li>
+        <li>Which archetype fits what we want most: weather safety (PNW/BC), lowest transition count (Kauai), novelty (Azores), or resort comfort (Maui)?</li>
+        <li>How heavily does wildfire smoke risk weigh for PNW and BC (smoke events in 3–4 of the last 6 summers)?</li>
+        <li>Budget ceiling — the Azores at $6–8K opens different tradeoffs than options at $10–16K</li>
+        <li>Hotel versus apartment/condo rental preference (matters most for Azores)</li>
       </ul>
     </div>
   </div>
@@ -1316,6 +1312,43 @@ window.addEventListener('load', () => {
   makeChart('chart-bc', chartData.bc, chartColors.bc);
   makeChart('chart-azores', chartData.azores, chartColors.azores);
   makeChart('chart-maui', chartData.maui, chartColors.maui);
+
+  // Tooltip system
+  const tip = document.createElement('div');
+  tip.className = 'js-tooltip';
+  document.body.appendChild(tip);
+
+  function showTip(el) {
+    tip.textContent = el.getAttribute('data-tooltip');
+    const r = el.getBoundingClientRect();
+    const tipW = 240;
+    let left = r.left + r.width / 2 - tipW / 2;
+    // Keep tooltip on-screen
+    const margin = 8;
+    if (left < margin) left = margin;
+    if (left + tipW > window.innerWidth - margin) left = window.innerWidth - tipW - margin;
+    tip.style.left = left + 'px';
+    tip.style.top = (r.bottom + 8) + 'px';
+    tip.classList.add('show');
+  }
+  function hideTip() { tip.classList.remove('show'); }
+
+  document.querySelectorAll('[data-tooltip]').forEach(el => {
+    el.addEventListener('mouseenter', () => showTip(el));
+    el.addEventListener('mouseleave', hideTip);
+    el.addEventListener('focus', () => showTip(el));
+    el.addEventListener('blur', hideTip);
+    // Tap on mobile
+    el.addEventListener('click', (e) => {
+      if (tip.classList.contains('show') && tip.textContent === el.getAttribute('data-tooltip')) {
+        hideTip();
+      } else {
+        showTip(el);
+        setTimeout(hideTip, 3500);
+      }
+      e.stopPropagation();
+    });
+  });
 });
 </script>
 <script src="photos.js"></script>
