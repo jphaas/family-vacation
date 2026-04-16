@@ -1938,6 +1938,74 @@ const DESTINATIONS = [
     ]
   },
   {
+    slug: "san-sebastian",
+    name: "San Sebasti\u00e1n + Basque Country",
+    tagline: "World-class food culture that actually works with kids, the Guggenheim, and dramatic Atlantic coast scenery \u2014 all in a walkable, compact region with near-ideal July weather well under the 82\u00b0F ceiling.",
+    scores: {
+      highlights: { raw: 4.5, rationale: "Pintxos hopping is a unique food experience that works with toddlers; Guggenheim is bucket-list and toddler-friendly; Flysch Route and Monte Igueldo add variety." },
+      stress: { raw: 4, rationale: "United nonstop EWR-BIO 7.5h, only 2 bases (Bilbao 5 + San Sebasti\u00e1n 9), compact walkable region. No car required but helpful for coast day trips." },
+      showstoppers: { raw: 4.5, rationale: "Atlantic Basque Country is far cooler than Mediterranean Spain; heat waves that devastate southern Spain rarely reach the northern coast. <5% probability of trip-ruining heat." },
+      weather: { raw: 4.5, rationale: "July avg 72\u201376\u00b0F, well under ceiling. Rainy (10\u201312 days see some precipitation) but mostly light and passing." },
+      cost: { raw: 3, rationale: "San Sebasti\u00e1n is one of Spain\u2019s most expensive cities in July. Pintxos add up. Total midpoint ~$9\u201311K." },
+      ageFit: { raw: 4, rationale: "Beaches, funicular park, aquarium, science museum, boat trips all work at 2+5. Gaztelugatxe hike (241 steps) is the one highlight better at 8+." },
+      accommodations: { raw: 3.5, rationale: "Good modern apartment inventory in Gros (San Sebasti\u00e1n) and Abando (Bilbao). July is peak \u2014 book early. Some older stock exists; filter carefully." },
+      total: 37
+    },
+    pills: [
+      { text: "72\u201376\u00b0F", type: "good" },
+      { text: "7.5h nonstop EWR", type: "good" },
+      { text: "2 bases only", type: "good" },
+      { text: "~$9\u201311K", type: "muted" },
+      { text: "10\u201312 rain days", type: "warn" }
+    ],
+    highlights: [
+      { name: "Pintxos hopping in Parte Vieja", summary: "Wander narrow old-town streets stopping at bar after bar to pick elaborate small plates from the counter.", detail: "Best food-culture experience in Europe that works with small kids: portions are bite-sized, pace is self-directed, many bars have outdoor seating. Going early (6\u20137:30 PM) avoids the crush. Naomi can pick her own pintxos; Hannah gets bites of tortilla and bread." },
+      { name: "Monte Igueldo funicular + vintage amusement park", summary: "A 1912 funicular climbs to panoramic La Concha views with a charmingly retro amusement park at the top.", detail: "Wooden roller coaster, bumper cars, trampolines at $2\u20133 each. No admission fee. Naomi will be in heaven; Hannah can ride accompanied. The views alone are worth it for adults." },
+      { name: "Guggenheim Museum Bilbao", summary: "The titanium-clad building is stunning outside (Koons\u2019 Puppy sculpture captivates kids before you enter); inside, Serra\u2019s steel ellipses are viscerally impressive at any age.", detail: "Free entry under 12. Family programs for ages 2+. Playground behind the museum. A 2-year-old can spend 60\u201390 min here happily." },
+      { name: "La Concha + Ondarreta beaches", summary: "Consistently rated one of Europe\u2019s best urban beaches: a perfect crescent of calm, shallow water protected by the bay.", detail: "Ondarreta (western end) is the family beach with playground and calmer water. Having a world-class beach 5 minutes from the old town is a major stress-reducer with young kids." },
+      { name: "Flysch Route boat trip (Zumaia)", summary: "60-million-year-old geological formations rise from the sea as dramatic tilted rock layers \u2014 genuinely unique scenery.", detail: "1\u20132 hour boat trip, kid-friendliest way to see it. Zumaia is 30 min from San Sebasti\u00e1n. Check tides for best viewing." },
+      { name: "Bilbao Casco Viejo + Artxanda funicular", summary: "Medieval pedestrianized streets with pintxos bars and a 3-minute cable car to panoramic city views.", detail: "Plaza Nueva\u2019s arcaded pintxos bars are atmospheric. Small playgrounds tucked into corners. The funicular is quick, easy, thrilling for a 5-year-old." },
+      { name: "Getaria fishing village", summary: "Tiny medieval port 25 km from San Sebasti\u00e1n with family beaches, a hilltop coastal walk, and grilled-fish restaurants pulling the catch off the boats.", detail: "Balenciaga Museum adds a cultural layer. Perfect half-day outing." },
+      { name: "Eureka! Science Museum", summary: "178 interactive exhibits, planetarium, live animals \u2014 ideal rainy-day backup (you\u2019ll likely need one with 10\u201312 rain days in July).", detail: "All signage in English. Families spend 3\u20135 hours. Naomi is the perfect age; Hannah enjoys the animal exhibits and tactile stations." }
+    ],
+    itinerary: {
+      bases: [
+        { name: "Bilbao", nights: 5, activities: "Arrive nonstop, Guggenheim, Casco Viejo, Artxanda funicular, optional Gaztelugatxe or Biarritz day trip" },
+        { name: "San Sebasti\u00e1n", nights: 9, activities: "Pintxos hopping (multiple evenings), La Concha, Monte Igueldo, Eureka!, Flysch Route, Getaria" }
+      ],
+      note: "Two bases, one easy 70-min bus transition. 5 + 9 nights keeps moves minimal."
+    },
+    showstopperRisks: [
+      { name: "Heat wave", level: "LOW", detail: "Atlantic Basque Country sits in a fundamentally different climate zone from interior Spain. Even during 2025\u2019s record heat, the Basque coast stayed far cooler. Probability of multi-day trip-ruining heat (95\u00b0F+) is <5%." },
+      { name: "Wildfire smoke", level: "LOW", detail: "The Basque Country\u2019s wetter Atlantic climate provides natural fire protection. Smoke from distant Galician fires could theoretically drift east but sustained disruption is historically very rare. <3% probability." }
+    ],
+    routineHazards: [
+      { name: "Rain", detail: "July averages 10\u201312 days with some precipitation (85mm total). Mostly light and passing, not all-day washouts. Pack jackets; have indoor backups." },
+      { name: "Cobblestones", detail: "Parts of Bilbao\u2019s Casco Viejo and Monte Urgull have uneven surfaces. Main promenades (La Concha, Gros, Bilbao river walk) are flat and stroller-friendly." },
+      { name: "Ocean currents", detail: "Open Atlantic beaches (Zurriola) can have strong surf. Stick to La Concha/Ondarreta for toddler-safe calm water within the bay." },
+      { name: "Crowds", detail: "July is peak. Pintxos bars pack after 8:30 PM (go early). Monte Igueldo has weekend queues." }
+    ],
+    accommodations: "San Sebasti\u00e1n\u2019s Gros neighborhood is best for families: modern apartments, flat streets, near Zurriola beach, 10-min walk to Parte Vieja. Quality 2BR with AC runs $220\u2013300/night. Bilbao\u2019s Abando/Indautxu districts are central, modern, walkable to Guggenheim at $180\u2013260/night. Spanish apartment renovation stock is generally high quality; filter for AC and recent reviews.",
+    logistics: "United nonstop EWR-BIO, 7h30m, 3x/week summer 2026. ~$600\u2013900/person RT. Bilbao to San Sebasti\u00e1n: hourly bus, 1h10m, ~$10/person. Both cities are highly walkable. Car optional (useful for Flysch Route and Getaria day trips). Spanish and Basque co-official; English moderate in tourist areas. Hospital Universitario Donostia (San Sebasti\u00e1n) has full pediatric ER.",
+    costBreakdown: "Flights ~$2,400\u20133,200 for 4 pax. Lodging (5 nights Bilbao + 9 San Sebasti\u00e1n) ~$3,200\u20134,500. Food ~$1,600\u20132,200 (pintxos add up). Transport ~$300\u2013500. Activities ~$200\u2013400. Midpoint ~$9,250.",
+    pros: [
+      "United nonstop 7.5h \u2014 one of the shortest transatlantic options",
+      "July 72\u201376\u00b0F, well under the heat ceiling, no meaningful heat wave risk",
+      "World-class food culture that genuinely works with kids",
+      "Exceptionally walkable cities with flat promenades",
+      "Two bases only, one easy transition",
+      "Guggenheim is bucket-list AND toddler-friendly",
+      "Strong Basque cultural identity feels genuinely different"
+    ],
+    cons: [
+      "10\u201312 rain days in July (mostly light but frequent)",
+      "San Sebasti\u00e1n is expensive in peak July",
+      "Hiking options are limited compared to alpine destinations",
+      "EWR nonstop is only 3x/week \u2014 less scheduling flexibility",
+      "Region is compact; 2 full weeks may feel long without adding side trips"
+    ]
+  },
+  {
     slug: "slovenia",
     name: "Slovenia (Ljubljana + Bled + Julian Alps)",
     tagline: "Peak fairy-tale whimsy for a 5-year-old: cave trains, wishing bells on lake islands, castles built into cliff faces, and an altitude gradient that provides a weather escape valve when valleys heat up.",
@@ -3215,6 +3283,71 @@ const DESTINATIONS = [
       "Cold, wet, windy weather is a daily grind with a toddler",
       "Midnight sun creates serious toddler sleep challenges",
       "Thin urban and cultural variety with a nature-heavy 75/25 split"
+    ]
+  },
+  {
+    slug: "dubrovnik",
+    name: "Dubrovnik + Croatian Coast",
+    tagline: "World-class walled city, island-hopping, and Roman palaces \u2014 but July heat that exceeds our 82\u00b0F ceiling on an average day, extreme cruise-ship crowds, and stroller-hostile old towns make this a better September destination.",
+    scores: {
+      highlights: { raw: 4, rationale: "Genuinely world-class scenery and history (walls, Diocletian\u2019s Palace, islands). But several marquee experiences are compromised with a 2-year-old in July heat." },
+      stress: { raw: 2.5, rationale: "Direct flights to both DBV and SPU are great. But 6h jet lag, extreme July crowds (27 visitors per resident), stroller-hostile old towns (1,080 wall steps), and a 3.5h drive between bases." },
+      showstoppers: { raw: 3.5, rationale: "~20\u201325% chance of a multi-day heat wave pushing to 95\u2013100\u00b0F with no altitude escape. Average July temps already exceed the 82\u00b0F ceiling before heat waves." },
+      weather: { raw: 2, rationale: "Average July highs of 83\u201386\u00b0F already exceed the ceiling on a normal day. Near-zero rain means no cloud relief. The sun is intense and relentless." },
+      cost: { raw: 3, rationale: "Midpoint ~$10,500 for 14 nights. Peak July pricing on the Dalmatian coast. Dubrovnik is one of Croatia\u2019s most expensive cities." },
+      ageFit: { raw: 3, rationale: "Headline experiences (2km wall walk, Diocletian\u2019s Palace in crowds, island ferries) are significantly better at 8\u201312. Lokrum and cable car work now." },
+      accommodations: { raw: 3.5, rationale: "Strong modern inventory; Cavtat is an excellent quieter base. Old Town properties tend toward steep stairs and tight layouts." },
+      total: 28.75
+    },
+    pills: [
+      { text: "83\u201386\u00b0F (over ceiling)", type: "warn" },
+      { text: "9h direct EWR-DBV", type: "muted" },
+      { text: "Extreme July crowds", type: "warn" },
+      { text: "~$10.5K", type: "muted" },
+      { text: "Better in September", type: "warn" }
+    ],
+    highlights: [
+      { name: "Dubrovnik Old Town + City Walls", summary: "A UNESCO walled city with a 2km walls circuit offering staggering Adriatic views from 80 feet up.", detail: "Must go at 8am opening to beat cruise crowds and heat. 1,080 steps with no shade or stroller access. With a toddler in a carrier this is a 90-minute endurance test in July. Incredible for adults." },
+      { name: "Lokrum Island", summary: "15-minute ferry to a car-free island with wild peacocks, a saltwater lake for toddler paddling, and a playground.", detail: "The boat ride entertains kids. Mrtvo More (saltwater lake) has shallow calm water. One of the most family-compatible Dubrovnik experiences." },
+      { name: "Dubrovnik Cable Car (Mt. Srd)", summary: "4-minute ride with floor-to-ceiling windows to 1,300 ft for panoramic views of the walled city and islands.", detail: "Toddler-friendly (short, smooth, enclosed). Under-4 free. Quick win." },
+      { name: "Elaphiti Islands day trip", summary: "Boat excursion to three car-free islands with a rare sandy beach on Lopud and a Blue Cave on Kolocep.", detail: "Group tours include lunch. Family-friendly pace. Full-day commitment." },
+      { name: "Diocletian\u2019s Palace + Marjan Park (Split)", summary: "A living 4th-century Roman palace containing Split\u2019s old town, plus a pine-shaded hillside park with playgrounds.", detail: "Labyrinthine passageways fascinate kids. Marjan has a golf-cart shuttle. Bacvice Beach nearby has knee-deep water extending 20\u201330m, perfect for toddlers." },
+      { name: "Mljet National Park", summary: "Croatia\u2019s greenest island with warm saltwater lakes, a Benedictine monastery on an islet, and flat cycling trails.", detail: "1.5h catamaran from Dubrovnik. Calm lake water is toddler-safe. A genuine nature escape from coastal crowds." }
+    ],
+    itinerary: {
+      bases: [
+        { name: "Dubrovnik area (Cavtat)", nights: 7, activities: "Old Town walls (8am), Lokrum Island, cable car, Elaphiti Islands boat, Mljet day trip" },
+        { name: "Split area", nights: 7, activities: "Diocletian\u2019s Palace, Marjan Park, Bacvice Beach, Korcula day trip, Krka Waterfalls" }
+      ],
+      note: "Two bases, fly into DBV and out of SPU (United open-jaw). One 3.5h drive between them via Peljesac Bridge."
+    },
+    showstopperRisks: [
+      { name: "Multi-day heat wave", level: "ELEVATED", detail: "July 2025 saw Dubrovnik hit 93\u00b0F in morning hours during a Mediterranean heat dome. ~20\u201325% probability of a 3\u20135 day event pushing 95\u2013100\u00b0F, confining the family to AC lodging. Unlike alpine destinations, the coast has no altitude escape." },
+      { name: "Baseline heat above ceiling", level: "STRUCTURAL", detail: "Even without a heat wave, normal July conditions (83\u201386\u00b0F highs) exceed the stated 82\u00b0F threshold. Every day is at or above the line. This is a baseline mismatch, not a probabilistic risk." }
+    ],
+    routineHazards: [
+      { name: "Extreme crowds", detail: "Dubrovnik Old Town sees 10,000+ daily visitors in a 34-acre space. Cruise ships create concentrated 10am\u20134pm surges. Strategy: mornings only." },
+      { name: "Stroller unfriendliness", detail: "Both old towns have steep stone steps and narrow alleys. Carrier essential; strollers impractical in historic cores." },
+      { name: "Rocky beaches", detail: "Croatia\u2019s beaches are predominantly pebble/rock. Water shoes essential. Sandy exceptions (Sunj on Lopud, Bacvice in Split) are rare." },
+      { name: "UV exposure", detail: "July UV index 8\u201310. Constant sunscreen, hats, and shade-seeking required with toddler skin." }
+    ],
+    accommodations: "Cavtat (20 min from Dubrovnik) is the best family base: quieter fishing village with modern apartments, calm swimming coves, and a flat promenade. Sun Gardens Dubrovnik is a full-service resort with 1\u20133 BR residences and kids\u2019 pools. In Split, target Bacvice/Firule area for proximity to the family beach. Avoid Old Town itself (stairs, noise). Trogir is a quieter UNESCO alternative 25 min from Split airport.",
+    logistics: "United EWR-DBV direct ~9h15m plus new 2026 EWR-SPU direct 3x/week \u2014 open-jaw is logistically elegant. 6h jet lag. Car useful but not essential (ferries + taxis cover most). Croatian, but English widely spoken on the coast. KBC Split has a strong pediatric department.",
+    costBreakdown: "Flights ~$4,000\u20135,600 for open-jaw. Car rental ~$400\u2013600. Lodging ~$3,000\u20135,000 for 14 nights. Food ~$1,200\u20131,800. Activities + ferries ~$800\u20131,300. Midpoint ~$10,500.",
+    pros: [
+      "World-class history and scenery: walls, palace, islands are bucket-list",
+      "Direct flights to both DBV and SPU enable elegant open-jaw itinerary",
+      "Strong 50/50 urban-nature split",
+      "Excellent food, very safe, EU/Schengen, English widely spoken",
+      "Deep modern accommodation inventory"
+    ],
+    cons: [
+      "Weather is the dealbreaker: avg July highs already exceed 82\u00b0F ceiling",
+      "20\u201325% heat wave probability with no altitude escape",
+      "Extreme July cruise-ship crowds in Dubrovnik Old Town",
+      "Stroller-hostile old towns with steep steps everywhere",
+      "Several key experiences compromised with a toddler in heat",
+      "Dramatically better in September or October"
     ]
   }
 ];
