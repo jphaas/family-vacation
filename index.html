@@ -120,6 +120,121 @@ details.score-drill>summary { cursor:pointer; font-weight:600; }
 
 footer { background:#1f2933; color:#d1d5db; padding:2.5rem 1.25rem; font-size:.88rem; }
 footer a { color:#9ae6b4; }
+
+/* ===== Tab toggle ===== */
+.tabs { background:#fff; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:12; box-shadow:0 1px 2px rgba(0,0,0,.03); }
+.tabs .container { display:flex; gap:.25rem; padding-top:.5rem; padding-bottom:0; }
+.tab-btn { flex:0 0 auto; padding:.75rem 1.25rem; background:none; border:none; border-bottom:3px solid transparent; font-size:.95rem; font-weight:600; color:var(--muted); cursor:pointer; transition:all .15s; font-family:inherit; }
+.tab-btn:hover { color:var(--text); }
+.tab-btn.active { color:var(--accent); border-bottom-color:var(--accent); }
+.tab-btn .count { font-weight:400; opacity:.7; margin-left:.25rem; font-size:.85rem; }
+
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+
+/* ===== Finalist card ===== */
+.finalist { background:var(--card-bg); border:1px solid var(--border); border-radius:14px; margin:2rem 0; overflow:hidden; box-shadow:var(--shadow); }
+.finalist-hero { position:relative; aspect-ratio:21/7; background:#1f2933; overflow:hidden; }
+.finalist-hero img { width:100%; height:100%; object-fit:cover; display:block; }
+.finalist-hero .overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(0,0,0,.1),rgba(0,0,0,.75)); display:flex; align-items:flex-end; padding:1.5rem 2rem; gap:1rem; }
+.finalist-hero h2 { color:#fff; margin:0; font-size:2rem; text-shadow:0 2px 8px rgba(0,0,0,.5); flex:1; }
+.finalist-hero .score-badge { position:absolute; top:1rem; right:1rem; display:flex; flex-direction:column; align-items:flex-end; gap:.3rem; }
+.finalist-hero .score-pill { background:#fff; color:var(--accent); padding:.3rem .9rem; border-radius:100px; font-weight:700; font-size:.9rem; box-shadow:0 2px 8px rgba(0,0,0,.25); }
+.finalist-hero .rec-pill { padding:.25rem .7rem; border-radius:100px; font-weight:600; font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; box-shadow:0 2px 8px rgba(0,0,0,.25); }
+.rec-strong { background:#10b981; color:#fff; }
+.rec-moderate { background:#f59e0b; color:#fff; }
+.rec-cautious { background:#dc2626; color:#fff; }
+
+.finalist-body { padding:1.75rem; }
+.finalist-summary { font-size:1.02rem; color:var(--text); margin:0 0 1.5rem; line-height:1.55; }
+
+.fsection { margin:2rem 0; padding-top:1.5rem; border-top:1px solid var(--border); }
+.fsection:first-child { padding-top:0; border-top:0; margin-top:0; }
+.fsection h3 { font-size:1.15rem; margin:0 0 .75rem; color:var(--accent); letter-spacing:-.01em; }
+.fsection .section-intro { color:var(--muted); font-size:.92rem; margin:.3rem 0 1rem; }
+
+/* Flight options */
+.flight-grid { display:grid; grid-template-columns:1fr; gap:.75rem; }
+@media(min-width:700px){ .flight-grid { grid-template-columns:repeat(3,1fr); } }
+.flight-card { border:1px solid var(--border); border-radius:10px; padding:1rem; background:#fafafa; display:flex; flex-direction:column; gap:.4rem; }
+.flight-card .fl-label { font-weight:700; color:var(--accent); font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
+.flight-card .fl-price { font-size:1.3rem; font-weight:700; }
+.flight-card .fl-price small { font-size:.75rem; font-weight:400; color:var(--muted); }
+.flight-card .fl-leg { font-size:.85rem; line-height:1.5; }
+.flight-card .fl-leg strong { color:var(--text); }
+.flight-card .fl-pain { display:inline-block; padding:.15rem .5rem; border-radius:100px; font-size:.72rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; }
+.pain-low { background:#dcfce7; color:#166534; }
+.pain-medium { background:#fef3c7; color:#92400e; }
+.pain-high { background:#fee2e2; color:#991b1b; }
+.flight-card .fl-notes { font-size:.85rem; color:var(--muted); font-style:italic; margin-top:.3rem; }
+
+/* Ground transport */
+.gt-verdict { background:var(--accent-light); border-left:3px solid var(--accent); padding:.8rem 1.1rem; border-radius:6px; font-weight:500; margin-bottom:1rem; }
+.gt-options { display:grid; grid-template-columns:1fr; gap:.5rem; }
+@media(min-width:700px){ .gt-options { grid-template-columns:1fr 1fr; } }
+.gt-opt { border:1px solid var(--border); border-radius:8px; padding:.75rem 1rem; background:#fff; font-size:.9rem; }
+.gt-opt strong { color:var(--accent); text-transform:capitalize; }
+
+/* Itinerary */
+.itin-summary { background:var(--accent-light); padding:.8rem 1.1rem; border-radius:8px; margin-bottom:1rem; font-size:.95rem; }
+.itin-summary strong { color:var(--accent); }
+.base-block { border:1px solid var(--border); border-radius:10px; margin:1rem 0; overflow:hidden; background:#fff; }
+.base-header { background:#f9f7f2; padding:.8rem 1.1rem; border-bottom:1px solid var(--border); }
+.base-header h4 { margin:0; color:var(--text); font-size:1.05rem; }
+.base-header h4 .nights { color:var(--accent); font-weight:600; font-size:.9rem; margin-left:.5rem; }
+.base-header .dates { font-size:.82rem; color:var(--muted); margin-top:.15rem; }
+.base-why { padding:.6rem 1.1rem; font-size:.85rem; color:var(--muted); border-bottom:1px solid var(--border); font-style:italic; }
+.base-transit { padding:.5rem 1.1rem; background:#fef9ef; border-bottom:1px solid var(--border); font-size:.82rem; color:#92400e; }
+.base-transit::before { content:"→ "; font-weight:700; }
+.days-list { padding:.5rem 0; }
+.day-row { padding:.5rem 1.1rem; font-size:.88rem; border-bottom:1px solid #f3f4f6; display:grid; grid-template-columns:7rem 1fr auto; gap:.75rem; align-items:start; }
+.day-row:last-child { border-bottom:none; }
+.day-row .day-label { font-weight:600; color:var(--accent); }
+.day-row .pace-dot { width:.65rem; height:.65rem; border-radius:50%; margin-top:.35rem; }
+.pace-light { background:#10b981; }
+.pace-medium { background:#f59e0b; }
+.pace-full { background:#ef4444; }
+
+/* Lodging */
+.lodge-base { margin:1.25rem 0; }
+.lodge-base h4 { margin:0 0 .5rem; color:var(--text); }
+.lodge-grid { display:grid; grid-template-columns:1fr; gap:.5rem; }
+@media(min-width:800px){ .lodge-grid { grid-template-columns:repeat(2,1fr); } }
+.lodge-card { border:1px solid var(--border); border-radius:8px; padding:.75rem 1rem; background:#fff; display:flex; flex-direction:column; gap:.3rem; }
+.lodge-card .lodge-name { font-weight:600; font-size:.95rem; }
+.lodge-card .lodge-price { font-size:1rem; font-weight:600; color:var(--accent); }
+.lodge-card .lodge-price .price-muted { font-size:.75rem; font-weight:400; color:var(--muted); }
+.lodge-card .lodge-meta { font-size:.8rem; color:var(--muted); }
+.lodge-card .tier-pill { display:inline-block; padding:.1rem .5rem; border-radius:100px; font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.04em; margin-right:.4rem; }
+.tier-budget { background:#e0f2fe; color:#075985; }
+.tier-mid { background:#fef3c7; color:#92400e; }
+.tier-premium { background:#f5d0fe; color:#701a75; }
+.lodge-card .lodge-notes { font-size:.85rem; color:var(--text); margin-top:.1rem; }
+
+/* Logistics list */
+.logistics-list { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr; gap:.5rem; }
+@media(min-width:700px){ .logistics-list { grid-template-columns:1fr 1fr; } }
+.logistics-list li { background:#fafafa; border-radius:6px; padding:.5rem .8rem; font-size:.88rem; }
+.logistics-list li strong { color:var(--accent); }
+
+/* Score update block */
+.score-update { background:#fafafa; border:1px solid var(--border); border-radius:10px; padding:1.1rem 1.3rem; }
+.score-update .big-score { font-size:1.6rem; font-weight:700; color:var(--accent); }
+.score-update .delta { margin-left:.5rem; font-size:.9rem; font-weight:600; }
+.delta-up { color:#10b981; }
+.delta-down { color:#dc2626; }
+.delta-neutral { color:var(--muted); }
+.score-changes { margin-top:.5rem; font-size:.88rem; }
+.score-changes li { margin:.2rem 0; }
+
+/* Pending placeholder */
+.pending-card { background:#fafafa; border:2px dashed var(--border); border-radius:14px; padding:2rem; text-align:center; color:var(--muted); margin:1.5rem 0; }
+.pending-card strong { color:var(--text); }
+
+/* Special findings */
+.special-findings { background:#fef9ef; border-left:3px solid #d97706; padding:.8rem 1.1rem; border-radius:6px; font-size:.9rem; margin:1rem 0; }
+.special-findings h4 { margin:0 0 .3rem; color:#b45309; font-size:.9rem; }
+.special-findings ul { margin:.2rem 0 0; padding-left:1.2rem; }
 </style>
 </head>
 <body>
@@ -131,6 +246,15 @@ footer a { color:#9ae6b4; }
     <div class="dates">July 4 – 18, 2026</div>
   </div>
 </header>
+
+<div class="tabs">
+  <div class="container">
+    <button class="tab-btn active" data-tab="overview">Overview<span class="count">22 destinations</span></button>
+    <button class="tab-btn" data-tab="finalists">Finalists<span class="count">detailed plans</span></button>
+  </div>
+</div>
+
+<div id="tab-overview" class="tab-panel active">
 
 <nav class="nav-anchors" id="nav">
   <div class="container" id="nav-links"></div>
@@ -200,6 +324,21 @@ footer a { color:#9ae6b4; }
     </div>
   </div>
 </section>
+
+</div><!-- /#tab-overview -->
+
+<div id="tab-finalists" class="tab-panel">
+  <nav class="nav-anchors" id="nav-finalists">
+    <div class="container" id="nav-finalists-links"></div>
+  </nav>
+  <section>
+    <div class="container">
+      <h2>Finalist deep dives</h2>
+      <p class="lead">Detailed plans for the 8 destinations we're most seriously considering. Live flight and lodging prices, sample itineraries, and ground transport commentary — so we can compare real tradeoffs, not generalities.</p>
+      <div id="finalist-cards"></div>
+    </div>
+  </section>
+</div><!-- /#tab-finalists -->
 
 <footer>
   <div class="container">
@@ -557,9 +696,200 @@ window.addEventListener('load', () => {
   });
 
   render();
+
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + target));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Lazy-render finalists on first open
+      if (target === 'finalists' && !window._finalistsRendered) {
+        renderFinalists();
+        window._finalistsRendered = true;
+      }
+    });
+  });
 });
+
+// ===== FINALISTS RENDERING =====
+function renderFinalists() {
+  if (typeof ITINERARIES === 'undefined') {
+    document.getElementById('finalist-cards').innerHTML = '<p class="lead">Loading finalist data...</p>';
+    return;
+  }
+
+  // Nav anchors
+  const navEl = document.getElementById('nav-finalists-links');
+  navEl.innerHTML = ITINERARIES.map(it =>
+    `<a href="#f-${it.slug}">${it.name.split('—')[0].split('(')[0].trim()}</a>`
+  ).join('');
+
+  const wrap = document.getElementById('finalist-cards');
+  wrap.innerHTML = ITINERARIES.map(it => {
+    if (it.status !== 'researched') {
+      return `<div id="f-${it.slug}" class="pending-card">
+        <strong>${it.name}</strong> — research in progress
+        <div style="font-size:.85rem;margin-top:.35rem">Phase 1 rank #${it.phase1Rank}. Detailed plan will appear here once research completes.</div>
+      </div>`;
+    }
+    return renderFinalistCard(it);
+  }).join('');
+}
+
+function renderFinalistCard(it) {
+  const photos = (typeof PHOTOS !== 'undefined' && PHOTOS[it.slug]) || null;
+  const heroUrl = photos ? photos.hero : '';
+  const heroImg = heroUrl ? `<img src="${heroUrl}" alt="${it.name}">` : '';
+  const rec = it.updatedScore?.recommendation || 'moderate';
+  const score = it.updatedScore?.total ?? it.phase1Rank;
+  const deltaVal = it.updatedScore?.delta ?? 0;
+  const deltaClass = deltaVal > 0 ? 'delta-up' : deltaVal < 0 ? 'delta-down' : 'delta-neutral';
+  const deltaStr = deltaVal === 0 ? '(unchanged)' : `(${deltaVal > 0 ? '+' : ''}${deltaVal.toFixed(1)} vs phase 1)`;
+
+  // Flights
+  const flightsHtml = it.flights ? `
+    <div class="fsection">
+      <h3>Flights from NYC</h3>
+      <p class="section-intro">${it.flights.summary} · <em>Prices as of ${it.dataCapturedAt} for a family of 4, round-trip.</em></p>
+      <div class="flight-grid">
+        ${(it.flights.options || []).map(f => `
+          <div class="flight-card">
+            <div class="fl-label">${f.label}</div>
+            <div class="fl-price">$${f.priceUSD.toLocaleString()} <small>family/4</small></div>
+            <div class="fl-leg"><strong>Out:</strong> ${f.outbound.route} · ${f.outbound.departDate} ${f.outbound.departTime}→${f.outbound.arriveTime} · ${f.outbound.duration}${f.outbound.layovers?.length ? ' · ' + f.outbound.layovers.join(', ') : ''}</div>
+            <div class="fl-leg"><strong>Back:</strong> ${f.return.route} · ${f.return.departDate} ${f.return.departTime}→${f.return.arriveTime} · ${f.return.duration}${f.return.layovers?.length ? ' · ' + f.return.layovers.join(', ') : ''}</div>
+            <div><span class="fl-pain pain-${f.painLevel}">${f.painLevel} pain</span>${f.painReasons?.length ? ' · ' + f.painReasons.join(', ') : ''}</div>
+            ${f.notes ? `<div class="fl-notes">${f.notes}</div>` : ''}
+            ${f.airline ? `<div style="font-size:.78rem;color:var(--muted)">${f.airline}</div>` : ''}
+          </div>`).join('')}
+      </div>
+    </div>` : '';
+
+  // Ground transport
+  const gtHtml = it.groundTransport ? `
+    <div class="fsection">
+      <h3>Getting around</h3>
+      <div class="gt-verdict">${it.groundTransport.verdict}</div>
+      <div class="gt-options">
+        ${(it.groundTransport.options || []).map(o =>
+          `<div class="gt-opt"><strong>${o.type}</strong> — ${o.commentary}${o.kidFactor ? ` <em style="color:var(--muted)">· ${o.kidFactor}</em>` : ''}</div>`
+        ).join('')}
+      </div>
+      ${it.groundTransport.driverNotes ? `<p class="section-intro" style="margin-top:1rem"><strong>Driving:</strong> ${it.groundTransport.driverNotes} <em>(American driver fit: ${it.groundTransport.americanDriverFriendly})</em></p>` : ''}
+    </div>` : '';
+
+  // Itinerary
+  const itinHtml = it.itinerary ? `
+    <div class="fsection">
+      <h3>Suggested itinerary</h3>
+      <div class="itin-summary"><strong>${it.itinerary.summary}</strong><br><span style="font-size:.88rem;color:var(--muted)">${it.itinerary.pacing}</span></div>
+      ${(it.itinerary.bases || []).map(b => `
+        <div class="base-block">
+          <div class="base-header">
+            <h4>${b.name} <span class="nights">${b.nights} nights</span></h4>
+            <div class="dates">${b.arrival} – ${b.departure}</div>
+          </div>
+          ${b.transitFromPrevious ? `<div class="base-transit">${b.transitFromPrevious}</div>` : ''}
+          ${b.whyThisLong ? `<div class="base-why">${b.whyThisLong}</div>` : ''}
+          <div class="days-list">
+            ${(b.sampleDays || []).map(d => `
+              <div class="day-row">
+                <div class="day-label">${d.label}</div>
+                <div>${d.activity}</div>
+                <div class="pace-dot pace-${d.pace}" title="Pace: ${d.pace}"></div>
+              </div>`).join('')}
+          </div>
+        </div>
+      `).join('')}
+      ${it.itinerary.alternativeStructure ? `<p class="section-intro"><em>Alternative:</em> ${it.itinerary.alternativeStructure}</p>` : ''}
+    </div>` : '';
+
+  // Lodging
+  const lodgeHtml = (it.lodging && it.lodging.length) ? `
+    <div class="fsection">
+      <h3>Lodging</h3>
+      <p class="section-intro">3-4 options per base across budget/mid/premium. Prices per night as of ${it.dataCapturedAt}.</p>
+      ${it.lodging.map(lb => `
+        <div class="lodge-base">
+          <h4>${lb.base} · ${lb.nights} nights</h4>
+          <div class="lodge-grid">
+            ${lb.options.map(o => `
+              <div class="lodge-card">
+                <div class="lodge-name"><span class="tier-pill tier-${o.tier}">${o.tier}</span>${o.url ? `<a href="${o.url}" target="_blank" rel="noopener">${o.name}</a>` : o.name}</div>
+                <div class="lodge-price">$${o.priceUSDperNight}/night <span class="price-muted">· ${o.bedroomConfig}</span></div>
+                <div class="lodge-meta">${o.type} · ${o.kidFriendly}</div>
+                ${o.notes ? `<div class="lodge-notes">${o.notes}</div>` : ''}
+              </div>`).join('')}
+          </div>
+        </div>`).join('')}
+    </div>` : '';
+
+  // Logistics
+  const logiHtml = (it.logistics && it.logistics.length) ? `
+    <div class="fsection">
+      <h3>Other logistics</h3>
+      <ul class="logistics-list">
+        ${it.logistics.map(l => `<li><strong>${l.category}:</strong> ${l.note}</li>`).join('')}
+      </ul>
+    </div>` : '';
+
+  // Special findings
+  const sfHtml = (it.specialFindings && it.specialFindings.length) ? `
+    <div class="special-findings">
+      <h4>Key findings from detailed research</h4>
+      <ul>${it.specialFindings.map(f => `<li>${f}</li>`).join('')}</ul>
+    </div>` : '';
+
+  // New risks
+  const riskHtml = (it.risks && it.risks.length) ? `
+    <div class="fsection">
+      <h3>Risks uncovered in research</h3>
+      ${it.risks.map(r =>
+        `<details class="item risk"><summary><strong>${r.name}</strong> <span class="risk-level">${r.severity}</span></summary><div class="detail-body">${r.detail}</div></details>`
+      ).join('')}
+    </div>` : '';
+
+  // Updated score
+  const scoreHtml = it.updatedScore ? `
+    <div class="fsection">
+      <h3>Updated scoring</h3>
+      <div class="score-update">
+        <div><span class="big-score">${it.updatedScore.total.toFixed(2)} / 52.5</span><span class="delta ${deltaClass}">${deltaStr}</span></div>
+        <p style="margin:.6rem 0 0;font-size:.95rem">${it.updatedScore.summary}</p>
+        ${it.updatedScore.changes?.length ? `<ul class="score-changes">${it.updatedScore.changes.map(c =>
+          `<li><strong>${c.category}:</strong> ${c.from} → ${c.to} — ${c.reason}</li>`
+        ).join('')}</ul>` : ''}
+      </div>
+    </div>` : '';
+
+  return `
+    <div id="f-${it.slug}" class="finalist">
+      <div class="finalist-hero">
+        ${heroImg}
+        <div class="overlay"><h2>${it.name}</h2></div>
+        <div class="score-badge">
+          <span class="score-pill">${score.toFixed ? score.toFixed(2) : score} / 52.5</span>
+          <span class="rec-pill rec-${rec}">${rec} recommend</span>
+        </div>
+      </div>
+      <div class="finalist-body">
+        <p class="finalist-summary">${it.summary || ''}</p>
+        ${sfHtml}
+        ${flightsHtml}
+        ${gtHtml}
+        ${itinHtml}
+        ${lodgeHtml}
+        ${logiHtml}
+        ${riskHtml}
+        ${scoreHtml}
+      </div>
+    </div>`;
+}
 </script>
 <script src="destinations.js"></script>
+<script src="itineraries.js"></script>
 <script>if(typeof DESTINATIONS!=='undefined') render();</script>
 </body>
 </html>
