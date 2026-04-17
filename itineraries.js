@@ -704,6 +704,167 @@ const ITINERARIES = [
   ]
 },
 
+/* ========================= AUSTRIA (phase1 rank 5) ========================= */
+{
+  slug: 'austria',
+  name: 'Austria (Vienna + Salzburg + Tyrol)',
+  phase1Rank: 5,
+  status: 'researched',
+  dataCapturedAt: '2026-04-17',
+  summary: 'A 3-base Austria trip — Vienna (5n) + Salzburg (4n) + Alpbach/Tyrol (5n) — delivers the family\'s 50/50 urban-nature split almost perfectly. Austrian Airlines flies JFK-VIE nonstop in ~8.5h; ÖBB Railjet Vienna→Salzburg (2.5h, family compartment) removes one of the three hotel-transition drives, leaving a single 1.5h Salzburg→Alpbach hop. Vienna is a genuine heat risk (30-35°C spikes ~15-20% likely in July) but the Tyrol leg at 18-25°C is a guaranteed cool-weather ending. Three transitions and kid-cognitive load at 5+22mo are the real ceiling — best at 8-12, still very good now.',
+  flights: {
+    summary: 'JFK-VIE on Austrian Airlines nonstop, ~8.5h eastbound / ~10h westbound. Roughly 7 weekly departures in peak summer. Lufthansa and United offer 1-stop via FRA/MUC at meaningful savings. Open-jaw VIE-in/MUC-out saves a 3.5h return drive from Alpbach.',
+    origin: 'JFK',
+    options: [
+      { label: 'Best overall — Austrian nonstop', airline: 'Austrian Airlines (Star Alliance)',
+        outbound: { route: 'JFK-VIE', departDate: '2026-07-04', departTime: '6:10 PM', arriveTime: '9:30 AM+1', duration: '8h 20m', layovers: [], notes: 'Evening departure; kids can sleep on the overnight; arrive mid-morning ready for a nap at the apartment.' },
+        return:   { route: 'VIE-JFK', departDate: '2026-07-18', departTime: '11:00 AM', arriveTime: '2:30 PM', duration: '~10h 30m', layovers: [], notes: 'Daytime westbound; lands early enough to get kids to bed on ET schedule.' },
+        priceUSD: 4100, painLevel: 'low', painReasons: ['6h jet lag', 'Overnight outbound standard transatlantic pattern'],
+        bookingWindow: 'Book by late May 2026; Austrian nonstop firms 30-60 days out in summer peak.',
+        notes: 'Source: Phase 1 Austria card + Austrian Airlines JFK-VIE route page. ~$1,025/pax x 4. Hannah (turned 2 on Jul 1) needs a full ticket — factored in. Recommended.' },
+      { label: 'Cheaper 1-stop via Frankfurt', airline: 'Lufthansa / United',
+        outbound: { route: 'JFK-FRA-VIE', departDate: '2026-07-04', departTime: '5:30 PM', arriveTime: '10:30 AM+1', duration: '10h 00m', layovers: ['Frankfurt FRA|90'], notes: 'FRA is well-run; 1h 30m connection is comfortable with kids. Lufthansa kid meals on request.' },
+        return:   { route: 'VIE-FRA-JFK', departDate: '2026-07-18', departTime: 'varies (morning)', arriveTime: 'same-day afternoon', duration: '~12h', layovers: ['Frankfurt FRA|90-120'], notes: 'Star Alliance reliability; United miles accrue.' },
+        priceUSD: 3600, painLevel: 'medium', painReasons: ['One stop adds ~2h door-to-door', 'Kids tire during connection'],
+        bookingWindow: 'Book by mid-May 2026.',
+        notes: 'Saves ~$500/family vs Austrian nonstop. Worth it only if budget-tight — the 2-hour door-to-door penalty with two young kids usually isn\'t worth $125/person.' },
+      { label: 'Open-jaw (VIE in, MUC out) — scenic return', airline: 'Austrian out / Lufthansa back',
+        outbound: { route: 'JFK-VIE', departDate: '2026-07-04', departTime: '6:10 PM', arriveTime: '9:30 AM+1', duration: '8h 20m', layovers: [], notes: 'Same Austrian nonstop outbound.' },
+        return:   { route: 'MUC-JFK', departDate: '2026-07-18', departTime: '10:30 AM', arriveTime: '1:30 PM', duration: '~9h 30m', layovers: [], notes: 'Lufthansa nonstop MUC-JFK. Drive from Alpbach to Munich airport is 1h 45m (vs 3.5h back to Vienna).' },
+        priceUSD: 4300, painLevel: 'low', painReasons: ['Slight premium over round-trip VIE', 'Munich-airport drive requires crossing German border (no vignette needed if transiting)'],
+        bookingWindow: 'Book by mid-May; book both one-ways on Star Alliance or use ITA Matrix.',
+        notes: 'Saves 2 hours of driving on departure day — meaningful with tired kids. ~$200 premium over round-trip VIE. Strong option if the 3-base plan stays in place.' }
+    ]
+  },
+  groundTransport: {
+    primary: 'ÖBB Railjet Vienna→Salzburg (2.5h, kids-free under 15, family compartment bookable). Pick up a rental car in Salzburg on transfer day and keep it through Alpbach; drop at Vienna airport or Munich airport (if open-jaw). Vienna and Salzburg are fully walkable intra-city — no car needed for the first 9 nights.',
+    options: [
+      { type: 'train', commentary: 'ÖBB Railjet Vienna Hauptbahnhof → Salzburg Hauptbahnhof, every hour, 2h 22m. Family compartments (6 seats, door-closing) bookable in advance for small surcharge. Kids under 15 free with parent. First-class is affordable (~€50/adult) and gives more space.', kidFactor: 'Excellent — no car seats to wrestle, kids can walk around, bathroom on board, dining car. The single best intercity rail ride on the whole finalists list.' },
+      { type: 'car', commentary: 'Pick up automatic SUV at Salzburg Hauptbahnhof (Hertz, Europcar, Sixt all have downtown desks) on day-9 transfer. Keep through Alpbach. ~€80-100/day incl. insurance + €10 Austrian vignette. Return at VIE airport (3.5h drive from Alpbach) or MUC airport (1h 45m, open-jaw option).', kidFactor: 'Need to pre-reserve 2 rear-facing / forward-facing car seats OR bring your own (airlines gate-check free). Bringing own seats is higher certainty.' },
+      { type: 'bus', commentary: 'Salzburg\'s Obus (trolleybus) and Vienna\'s U-Bahn/trams cover both cities densely. Wiener Linien 72-hour pass €17.10/adult, kids under 6 always free. Alpbach has a free guest-card shuttle (Alpbachtal Card) that rides local buses + gondolas.', kidFactor: 'Strollers fine on all systems; Vienna metro has elevators at most central stops.' },
+      { type: 'walk', commentary: 'Vienna 1st district, Schönbrunn grounds, Salzburg Altstadt, Alpbach village are all flat and stroller-friendly on paved surfaces. Salzburg Altstadt has cobblestones in places — sturdy stroller wheels recommended.', kidFactor: 'High on paved; medium on cobbles.' },
+      { type: 'taxi', commentary: 'Uber works in Vienna (via licensed taxis). Salzburg has a local app "Taxi 8111". Alpbach: call ahead via hotel.', kidFactor: 'Car seats by request only — not a default. Use for point-to-point; not a primary system.' }
+    ],
+    americanDriverFriendly: 'mostly',
+    driverNotes: 'Right-side driving like US. Digital motorway vignette required (€10.80 10-day, buy online at asfinag.at before trip). Roundabouts common. A1 Salzburg→Vöcklabruck→Kufstein→Alpbach is a well-maintained motorway. Snow not a concern in July. Pick up car in Salzburg (not Vienna) — saves 3h of VIE-SBG driving you\'d skip by taking the train, and eliminates 2 days of Vienna parking headaches.',
+    verdict: 'Train for the first transfer (VIE→SBG), car for the second (SBG→Alpbach). No car at all in Vienna. Open-jaw MUC return saves 1h 45m vs driving back to VIE and is the structurally cleanest plan.'
+  },
+  itinerary: {
+    summary: '3 bases: Vienna (5n) + Salzburg (4n) + Alpbach/Tyrol (5n). Urban anchor → cultural middle → alpine decompression.',
+    pacing: 'Deliberately arcs from high-density Vienna to low-density Alpbach so kid fatigue drops as the trip progresses. Vienna heat is pre-empted by booking A/C apartments and front-loading museums in mornings. Afternoon naps are non-negotiable for both kids through day 9. Alpbach is full rest-and-reset.',
+    bases: [
+      { name: 'Vienna (Schönbrunn district)', nights: 5, arrival: 'Jul 5', departure: 'Jul 10',
+        whyThisLong: 'Five nights is the minimum to absorb 6h jet lag AND hit Schönbrunn Palace + Zoo, Prater, inner-city walking, one children\'s museum, and a coffeehouse afternoon without squeezing. Six would be better; we trade a night here to give Tyrol the full 5.',
+        sampleDays: [
+          { label: 'Day 1 (Jul 5, Sun)', activity: 'Land VIE 9:30 AM; S7 train or taxi to apartment near Schönbrunn; nap; easy afternoon in Schönbrunn gardens + maze playground; early dinner + bed 7pm', pace: 'light' },
+          { label: 'Day 2 (Jul 6, Mon)', activity: 'Schönbrunn Palace Kids\' Children\'s Museum (book ahead) morning; Schönbrunn Zoo afternoon (Europe\'s oldest, excellent for both ages)', pace: 'full' },
+          { label: 'Day 3 (Jul 7, Tue)', activity: 'Inner city — Stephansdom exterior, Stadtpark playground (Strauss statue), coffeehouse lunch at Café Central, afternoon nap, Naschmarkt early-evening stroll', pace: 'medium' },
+          { label: 'Day 4 (Jul 8, Wed)', activity: 'Prater all day — Ringelspiel carousel, Liliputbahn miniature railway, Giant Ferris Wheel; Aqua Gaudi water ride for heat relief; Donauinsel park late afternoon', pace: 'full' },
+          { label: 'Day 5 (Jul 9, Thu)', activity: 'ZOOM Children\'s Museum (book ahead) morning; Belvedere gardens picnic (skip interiors); packing afternoon; gelato on Kärntner Straße', pace: 'medium' }
+        ] },
+      { name: 'Salzburg (Old Town area)', nights: 4, arrival: 'Jul 10', departure: 'Jul 14',
+        transitFromPrevious: 'ÖBB Railjet Vienna Hbf 9:30 AM → Salzburg Hbf 11:52 AM (2h 22m, family compartment). Pick up rental car at Salzburg Hbf desks on arrival; drive 10 min to Altstadt lodging. Kids under 15 ride free.',
+        whyThisLong: 'Four nights covers Hohensalzburg + Old Town walk + a Hallstatt day trip + one Salzkammergut lake + a DIY Sound of Music afternoon, with a rain buffer. Three would skip the lake day.',
+        sampleDays: [
+          { label: 'Day 6 (Jul 10, Fri)', activity: 'Arrive ~noon; check in; Mirabell Gardens afternoon (Do-Re-Mi spots — Naomi will love); Getreidegasse dinner; bed', pace: 'light' },
+          { label: 'Day 7 (Jul 11, Sat)', activity: 'Funicular up Hohensalzburg Fortress morning (panoramic views, kid-friendly audio tour); Stiegl beer garden lunch; Hellbrunn Palace trick fountains + small zoo afternoon', pace: 'full' },
+          { label: 'Day 8 (Jul 12, Sun)', activity: 'Hallstatt day trip — depart 7:30 AM, arrive ~9 AM before tour buses; lakeshore walk, Navia boat ride, Gosau Lakes short family hike. Skip salt mine (Hannah under age-4 cutoff). Back in Salzburg by 6 PM', pace: 'full' },
+          { label: 'Day 9 (Jul 13, Mon)', activity: 'Toy Museum (Spielzeugmuseum) morning; Mozart birthplace exterior; playground at Hellbrunner Allee; packing; early dinner near Altstadt', pace: 'light' }
+        ] },
+      { name: 'Alpbach / Tyrol', nights: 5, arrival: 'Jul 14', departure: 'Jul 19',
+        transitFromPrevious: 'Drive Salzburg → Alpbach via A1/A12 motorway, 1h 45m (incl. Austrian vignette). Scenic Inn Valley leg. Stop in Kufstein for lunch if kids need a break.',
+        whyThisLong: 'Five nights of pure decompression — gondola-accessed playgrounds, buggy-friendly forest trails, alpine lake swimming, no museums, no city noise. Weather insurance: even in a Vienna heat wave, Alpbach stays 18-25°C.',
+        sampleDays: [
+          { label: 'Day 10 (Jul 14, Tue)', activity: 'Drive from Salzburg morning; check in Alpbach chalet; village walk in "Austria\'s prettiest village"; playground + early dinner', pace: 'light' },
+          { label: 'Day 11 (Jul 15, Wed)', activity: 'Wiedersbergerhornbahn gondola morning to Lauserland mountaintop adventure playground (all ages); picnic lunch; afternoon in chalet / pool', pace: 'medium' },
+          { label: 'Day 12 (Jul 16, Thu)', activity: 'Reitherkogelbahn gondola to Juppi\'s Enchanted Forest — buggy-friendly loop trail designed for toddlers and strollers; zip-lining and tree-house activities', pace: 'medium' },
+          { label: 'Day 13 (Jul 17, Fri)', activity: 'Reintalersee swimming lake (10 min drive from Alpbach) — shallow, warm, sandy shore; OR drive 45 min to Achensee for bigger-lake boat ride', pace: 'light' },
+          { label: 'Day 14 (Jul 18, Sat)', activity: 'Easy valley hike (Alpbach village → forest loop ~3km stroller-friendly); farewell Kaiserschmarrn lunch; early dinner; pack', pace: 'light' }
+        ] }
+    ],
+    alternativeStructure: 'Alt A (simpler, 2-base): Vienna 7n + Alpbach 7n — drop Salzburg, rent a car for one day to Hallstatt from Alpbach instead. Removes one hotel transition. Alt B (splits the risk differently): Salzburg 5n + Alpbach 9n — skip Vienna entirely if kid-cognitive-load concerns dominate. Alt C: Add Hallstatt as a 2-night overnight stop between Salzburg and Alpbach — only if 4-base plan doesn\'t feel crazy (it does).'
+  },
+  lodging: [
+    { base: 'Vienna', nights: 5, options: [
+      { name: 'H2 Hotel Wien Schönbrunn', type: 'hotel', tier: 'mid', priceUSDperNight: 220, bedroomConfig: 'Family quad room with bunk beds',
+        kidFriendly: 'Purpose-built for families; walking distance to Schönbrunn Palace; A/C (essential for July heat)', notes: 'Opened March 2024, modern, excellent family inventory. Best mid-tier option near Schönbrunn.', url: 'https://www.h-hotels.com/en/h2/hotels/h2-hotel-wien-schoenbrunn' },
+      { name: 'Vienna Stay Apartments Schönbrunn', type: 'aparthotel', tier: 'mid', priceUSDperNight: 260, bedroomConfig: '2BR apartment, sleeps 4, full kitchen, washing machine',
+        kidFriendly: 'Kitchen for breakfast + toddler snacks; A/C; 18-min walk to palace', notes: '5-star apartments, rated 8.4. Sweet spot of space + amenities + modern finishes.', url: 'https://www.viennastay.com/' },
+      { name: 'Austria Trend Parkhotel Schönbrunn', type: 'hotel', tier: 'budget', priceUSDperNight: 175, bedroomConfig: 'Family room, 2 doubles or 1 double + 2 twins',
+        kidFriendly: 'Classic property, well-maintained, 10-min walk to palace; A/C', notes: 'Budget-friendly; older property but clean; good for families not bothered by dated decor.', url: 'https://www.austria-trend.at/en/hotels/parkhotel-schoenbrunn' },
+      { name: 'Airbnb 2BR in 6th/7th district', type: 'airbnb', tier: 'mid', priceUSDperNight: 200, bedroomConfig: '2BR flat, sleeps 4-5',
+        kidFriendly: 'Neighborhood immersion; kitchen; filter for A/C (not universal in Vienna)', notes: 'Filter for Superhost, 4.8+, A/C confirmed. Older buildings often 3-4 flights up with no elevator — confirm elevator before booking.', url: 'https://www.airbnb.com/vienna-austria/stays' },
+      { name: 'Hotel Sacher Wien (splurge)', type: 'hotel', tier: 'premium', priceUSDperNight: 720, bedroomConfig: 'Junior suite / connecting rooms',
+        kidFriendly: 'Classic Viennese grandeur; central Ringstraße location; full concierge; Sacher torte afternoon included', notes: 'Splurge option — not recommended for 5 nights at this price but worth one night if you want the experience.', url: 'https://www.sacher.com/en/hotels/vienna/' }
+    ] },
+    { base: 'Salzburg', nights: 4, options: [
+      { name: 'Arthotel Blaue Gans', type: 'hotel', tier: 'mid', priceUSDperNight: 265, bedroomConfig: 'Family room, 1 double + 2 singles',
+        kidFriendly: 'Central Altstadt location (Getreidegasse), historic building with modern art-forward interiors; A/C', notes: 'Walking distance to Hohensalzburg funicular, Mozart\'s birthplace, Mirabell Gardens. Rose-friendly aesthetic.', url: 'https://www.blauegans.at/en' },
+      { name: 'MEININGER Hotel Salzburg City Center', type: 'hotel', tier: 'budget', priceUSDperNight: 160, bedroomConfig: 'Family quad room, 4 beds, private bath',
+        kidFriendly: 'Purpose-built family/budget chain; near Salzburg Hbf; elevator; clean and modern', notes: 'Basic but reliable. Same chain as in Copenhagen. 15 min walk or 5 min bus to Altstadt.', url: 'https://www.meininger-hotels.com/en/hotels/salzburg/city-center/' },
+      { name: '2BR Airbnb in Altstadt or Leopoldskron', type: 'airbnb', tier: 'mid', priceUSDperNight: 215, bedroomConfig: '2BR apartment, sleeps 4, full kitchen, washing machine',
+        kidFriendly: 'Space to spread out after 5 nights in hotel; kitchen for family meals; local feel', notes: 'Salzburg Airbnbs average 4.8/5. Filter for recent renovation + washing machine + A/C. Leopoldskron neighborhood has Sound of Music filming locations.', url: 'https://www.airbnb.com/salzburg-austria/stays' },
+      { name: 'Hotel Sacher Salzburg', type: 'hotel', tier: 'premium', priceUSDperNight: 620, bedroomConfig: 'Family suite or connecting rooms, Salzach River views',
+        kidFriendly: 'Grand old-world hotel; heated pool; central; concierge help with Hallstatt logistics', notes: 'Premium splurge. Kids welcomed — this chain has 150+ years of family-travel DNA.', url: 'https://www.sacher.com/en/hotels/salzburg/' }
+    ] },
+    { base: 'Alpbach', nights: 5, options: [
+      { name: 'Chalet Waschküchl', type: 'airbnb', tier: 'premium', priceUSDperNight: 340, bedroomConfig: 'Two elegant flats, modern kitchen, dishwasher, Nespresso, sleeps 5',
+        kidFriendly: 'Traditional Tyrolean wood exterior + modern interior; quiet village setting; balcony with mountain views', notes: 'Rose-friendly finishes. Book through Alpbachtal.at or direct. Alpbach\'s strict architectural code means even new builds look traditional.', url: 'https://www.alpbachtal.at/en/accommodation' },
+      { name: 'Alpbach Juwel', type: 'apartment', tier: 'premium', priceUSDperNight: 310, bedroomConfig: '2BR family apartment, south-facing balcony, private sauna option',
+        kidFriendly: 'Full kitchen; washing machine; mountain views; 5 min walk to gondola', notes: 'Excellent modern 2-bedroom in core village. Mountain views from every window.', url: 'https://www.alpbachtal.at/en/accommodation' },
+      { name: 'Hotel Post Alpbach', type: 'hotel', tier: 'mid', priceUSDperNight: 240, bedroomConfig: 'Family room with separate kids\' alcove',
+        kidFriendly: 'Central village square; traditional Gasthof with modern rooms; restaurant on-site; indoor pool', notes: 'Hotel-style convenience if you don\'t want to self-cater. Half-board available.', url: 'https://www.hotel-post-alpbach.at/en/' },
+      { name: 'Alpbach apartments in Reith', type: 'apartment', tier: 'budget', priceUSDperNight: 165, bedroomConfig: '2BR apartment in next-village-over (Reith im Alpbachtal)',
+        kidFriendly: 'Garden; mountain views; balcony; free Alpbachtal Card (gondolas + bus + pool included)', notes: 'Reith is 5 min drive from Alpbach village — identical valley access, ~30% cheaper. Alpbachtal Card is a genuine value-multiplier.', url: 'https://www.alpbachtal.at/en/accommodation/search' }
+    ] }
+  ],
+  logistics: [
+    { category: 'Vienna heat mitigation', note: 'July avg high 26-27°C (79°F) but 30-35°C spikes ~4x per summer. Book A/C apartments (not universal in Vienna). Front-load morning activities; nap during peak heat (2-5 PM); use air-conditioned museums (ZOOM, Schönbrunn interiors) as backup.' },
+    { category: 'Alpbachtal Card', note: 'Included free with all Alpbach accommodations. Covers all gondolas, buses, swimming pools, museums. Worth ~€200/family over 5 days. Essential value-add.' },
+    { category: 'Austrian vignette', note: 'Digital motorway toll sticker required. €10.80 for 10-day pass, buy online at asfinag.at before pickup. Paper vignettes also sold at gas stations near border.' },
+    { category: 'ÖBB train booking', note: 'Book Railjet VIE-SBG 2-8 weeks ahead at oebb.at. Sparschiene fares from €19/adult. Family compartment reservation extra €4. Kids under 15 free with parent.' },
+    { category: 'Language', note: 'German, but English is near-universal in tourism, hotels, restaurants, and transit. Zero friction for this itinerary.' },
+    { category: 'Time zone', note: 'UTC+2 (CEST), 6h ahead of NYC. Moderate jet lag. Eastbound harder on night 1; westbound harder on the full post-trip week.' },
+    { category: 'Hannah\'s seat', note: 'Turned 2 on Jul 1 — full ticket required on all flights. Factored into $4,100 RT estimate.' },
+    { category: 'Car seats', note: 'Bring your own (airlines gate-check free) — more certain than rental-agency child seat reservations, which sometimes fall through. Rental agency option as backup, reserve 2+ weeks ahead.' },
+    { category: 'Hallstatt strategy', note: 'Leave Salzburg by 7:30 AM to arrive 9 AM and beat tour-bus crowds. By 11 AM, village is mobbed. Do lake walk + boat ride + short Gosau Lakes hike; skip salt mine (Hannah under 4 cutoff).' },
+    { category: 'TBE vaccination', note: 'Tick-borne encephalitis is endemic in Austrian forests. If doing the alpine valley hike, tuck pants into socks, do tick checks after, or discuss TBE vaccination with pediatrician (3-dose series, start 3+ months ahead — likely too late for July 2026).' },
+    { category: 'Free admissions', note: 'Under-19s get free entry to all Austrian federal museums. Kids under 6 ride Vienna public transit free. Alpbachtal Card covers gondolas.' },
+    { category: 'Medical', note: 'Excellent. English-speaking pediatricians in Vienna, Salzburg, and Innsbruck. Travel insurance still recommended — Austrian healthcare isn\'t free for visitors.' },
+    { category: 'Food kid-fit', note: 'Highly kid-friendly cuisine (schnitzel, strudel, Kaiserschmarrn, bratwurst, dumplings). Highchairs universal. Zero dietary adjustment needed.' }
+  ],
+  updatedScore: {
+    total: 43.25, previousTotal: 42.75, delta: 0.5,
+    changes: [
+      { category: 'Stress', from: 4.0, to: 4.25, reason: 'ÖBB Railjet family compartment makes the Vienna→Salzburg transit genuinely relaxing — no car, no driver stress, kids roam the cabin. Offsets some of the 3-base concern.' },
+      { category: 'Cost', from: 3.0, to: 3.0, reason: 'Unchanged. Live Phase 1 estimate of $11,000-13,000 family of 4 holds up. Austrian nonstop $4,100 + mid-range lodging + modest activities.' },
+      { category: 'Accommodations', from: 4.5, to: 4.5, reason: 'Unchanged — strong modern inventory confirmed across all 3 bases.' }
+    ],
+    recommendation: 'strong',
+    summary: 'Moves up half a point to 43.25/52.5. The big Phase 2 finding is that ÖBB Railjet makes one of the three "hotel transitions" feel like a fun train ride instead of a travel day, closing much of the 3-base stress gap. Still below the Scandinavian top tier but a genuine strong-recommend — especially appealing if urban-culture weight is high.'
+  },
+  risks: [
+    { name: 'Central European heat wave', detail: 'Vienna had 4 heat waves in summer 2024; 30-35°C multi-day spells are now ~15-20% probable in a 2-week July window. A sustained 35°C+ spell could confine indoor activities for 2-3 Vienna days. Mitigation: front-load Vienna (days 1-5), A/C lodging non-negotiable, Tyrol leg guarantees cool escape.', severity: 'medium' },
+    { name: 'Salzburg rain (17 rain-days avg in July)', detail: 'Rainiest leg of the trip. Expect at least one full rain day in 4 nights. Mitigation: Haus der Natur science museum, Toy Museum, Hohensalzburg (funicular covered), Sacher café.', severity: 'low' },
+    { name: 'Alpine thunderstorms in Tyrol', detail: 'July 2025 was Austria\'s wettest July since 2012 (+42% rainfall). Afternoon storms can close gondolas for a day. Mitigation: front-load gondola mornings (before 1 PM); indoor pool at hotel; chalet Netflix days.', severity: 'low' },
+    { name: 'Three hotel transitions', detail: 'Rubric prefers 2. Mitigation: ÖBB Railjet makes the first transition genuinely pleasant; the second (Salzburg→Alpbach) is a short 1h 45m drive. Net cognitive load ~same as 2-base trips with a day-trip structure.', severity: 'low' },
+    { name: 'Hallstatt crowding', detail: 'Peak July tour-bus volume turns the village into a squeeze by 11 AM. Mitigation: 7:30 AM depart from Salzburg, out by noon. Or skip — the Wolfgangsee and Fuschlsee lakes offer similar scenery without crowds.', severity: 'low' },
+    { name: 'Hannah excluded from Hallstatt salt mine', detail: 'Age 4+ minimum. Naomi (5) can do it, Hannah cannot. Split-shift parent coverage required, or skip the salt mine entirely (lake day still delivers).', severity: 'low' },
+    { name: 'Open-jaw MUC return pricing surprise', detail: 'MUC return fare sometimes spikes above VIE by $300+ close to departure. Check both options at booking time; don\'t assume $200 premium holds.', severity: 'low' }
+  ],
+  specialFindings: [
+    'ÖBB Railjet Vienna→Salzburg (2h 22m, family compartment) is the single-best intercity rail segment on the finalists list — converts one "hotel transition" into a cheap, relaxing experience rather than a logistics day.',
+    'Open-jaw VIE-in/MUC-out saves 1h 45m of driving on departure day vs round-trip VIE (Alpbach→MUC is 1h 45m; Alpbach→VIE is 3.5h). ~$200 family-of-4 premium, usually worth it.',
+    'Vienna A/C is NOT universal in older apartments — filter explicitly. July heat spikes make this non-negotiable in 2026.',
+    'Alpbachtal Card (free with accommodation) includes gondolas, buses, pools, museums — ~€200/family of value over 5 days in Tyrol.',
+    'Hallstatt salt mine excludes Hannah (age 4+ minimum). Not a trip-ruiner but worth knowing before sinking a full day.',
+    'The 3-base plan (5+4+5) leaves one decent Hallstatt day trip from Salzburg rather than trying to fit Salzkammergut into Alpbach or Vienna.',
+    'TBE vaccination is a meaningful consideration if doing alpine-valley hikes. 3-dose series takes months to complete — likely too late for July 2026; stick to cleared trails + tick checks.',
+    'Under-19s get FREE entry to all Austrian federal museums (Kunsthistorisches, Albertina, Belvedere, etc.). Kids under 6 ride Vienna transit free. Real savings over 14 days.',
+    'Austria scores below the Scandinavian top 3 on weather (Vienna heat risk) and stress (3 bases) but above them on cost (~$11-13k vs $13-14k) and cultural depth for Naomi.'
+  ]
+},
+
 /* ========================= SPAIN NORTH (phase1 rank 10) ========================= */
 {
     slug: 'spain-north',
